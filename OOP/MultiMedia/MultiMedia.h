@@ -23,6 +23,8 @@ public:
 	friend bool operator==(MultiMedia  &lop, MultiMedia &rop);
 	friend bool operator<(MultiMedia &first, MultiMedia &last);
 
+
+
 };
 
 typedef vector<MultiMedia> MMV; //MultiMedia-vektor

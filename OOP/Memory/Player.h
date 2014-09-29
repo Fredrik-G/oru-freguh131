@@ -1,8 +1,12 @@
 #pragma once
-class Player
-{
-public:
-	Player(void);
-	~Player(void);
-};
+
+//namespace MemorySpace
+//{
+	class Player
+	{
+	public:
+		Player(void);
+		~Player(void);
+	};
+//}
 

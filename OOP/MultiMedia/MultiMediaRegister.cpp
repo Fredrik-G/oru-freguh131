@@ -111,7 +111,7 @@ MMI it;
 }
 
 void MultiMediaRegister::Search()
-{    //Sökfunktiuon utan algorithm-find
+{
 	MMI it;
 	string s;
 	bool klart = false;
@@ -129,7 +129,10 @@ void MultiMediaRegister::Search()
 		for (it = p->begin(); it < p->end(); it++)
 		{
 			if ( s.compare((*it).GetID()) == 0 )//Compare returnerar 0 om strängarna är lika
+			{
 				cout << *it << "\n";
+
+			}
 		}
 	klart =  true;
 	return;
@@ -143,7 +146,10 @@ void MultiMediaRegister::Search()
 		for (it = p->begin(); it < p->end(); it++)
 		{
 			if ( s.compare((*it).GetName()) == 0 )
+			{
 				cout << *it << "\n";
+
+			}
 		}
 	klart =  true;
 	return;

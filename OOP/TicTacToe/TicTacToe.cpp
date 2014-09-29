@@ -389,7 +389,6 @@ void TicTacToe::setCursor(int x, int y)
 	xcursor = x;
 	ycursor = y;
 	Console::gotoxy(xpos[xcursor], ypos[ycursor]);
-
 }
 
 void TicTacToe::PrintBoard()

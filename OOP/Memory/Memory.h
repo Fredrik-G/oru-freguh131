@@ -1,18 +1,34 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
-#include <fstream>
 #include <vector>
 #include <string>
 #include "Player.h"
 #include "Card.h"
 
-class Memory
+using namespace std;
+
+namespace MemorySpace
 {
-private:
-	//vector<Player> *pv;
-	//vector<vector<Card>> *cvv;
-public:
-	Memory(void);
-	~Memory(void);
-};
+	class Memory
+	{
+	private:
+			int r_size,c_size;
+			int row;
+			int column;
+			int xcursor, ycursor;
+			vector<Player> *pv;
+			vector<vector<Card>> *cvv;
+	public:
+			Memory();
+			~Memory();
+
+			Memory(int r, int c);
+			void PrintBoard();
+			int Keyboard();
+			void setCursor(int x, int y);
+			void flip();
+	};
+}
+typedef vector<Player> V;
+typedef vector<vector<Card>> VVC;

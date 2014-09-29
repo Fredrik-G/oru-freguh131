@@ -15,15 +15,13 @@ private:
 public:
 	MultiMedia();
 	~MultiMedia();
-	string& GetID()	  { return id;   }
+	string& GetID() { return id; }
 	string& GetName() { return name; }
-	int&	GetYear() { return year; }
+
 	friend ostream & operator<<(ostream &stream, MultiMedia &m2);
 	friend istream & operator>>(istream &stream, MultiMedia &m2);
 	friend bool operator==(MultiMedia  &lop, MultiMedia &rop);
 	friend bool operator<(MultiMedia &first, MultiMedia &last);
-
-
 
 };
 

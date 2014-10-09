@@ -39,6 +39,17 @@ namespace Femtonpussel
             InitializeComponent();
             RitaIkoner();
         }
+        private void CheckForWinner()
+        {
+            if (label1.Text == "1" && label2.Text == "2" && label3.Text == "3"
+                && label4.Text == "4" && label5.Text == "5" && label6.Text == "6"
+                && label7.Text == "7" && label8.Text == "8" && label9.Text == "9"
+                && label10.Text == "10" && label11.Text == "11" && label12.Text == "12"
+                && label16.Text == "13" && label14.Text == "14" && label15.Text == "15")
+            {
+                MessageBox.Show("Du vann");
+            }
+        }
         private void Move(Label labelClicked)
         {
             foreach (Control control in tableLayoutPanel1.Controls)
@@ -151,6 +162,8 @@ namespace Femtonpussel
         #endregion
 
         private void FormPussel_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
         /*    {
                Label labelZero;
                Label labelActive;
@@ -218,7 +231,6 @@ namespace Femtonpussel
                }
            }
            */
-        {
-        }
+
     }
 }

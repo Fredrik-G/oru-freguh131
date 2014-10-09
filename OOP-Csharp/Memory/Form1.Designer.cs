@@ -54,6 +54,9 @@
             this.börjaOmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuskaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timerElapsed = new System.Windows.Forms.Timer(this.components);
+            this.labelTime = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -363,12 +366,37 @@
             this.timer2.Interval = 150;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // timerElapsed
+            // 
+            this.timerElapsed.Interval = 1000;
+            this.timerElapsed.Tick += new System.EventHandler(this.timerElapsed_Tick);
+            // 
+            // labelTime
+            // 
+            this.labelTime.AutoSize = true;
+            this.labelTime.Location = new System.Drawing.Point(517, 8);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(13, 13);
+            this.labelTime.TabIndex = 2;
+            this.labelTime.Text = "0";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(494, 8);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(25, 13);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Tid:";
+            // 
             // FormMemory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(542, 498);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.labelTime);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -412,6 +440,9 @@
         private System.Windows.Forms.ToolStripMenuItem fuskaToolStripMenuItem;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.ToolStripMenuItem aktiveraFuskToolStripMenuItem;
+        private System.Windows.Forms.Timer timerElapsed;
+        private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.Label label18;
     }
 }
 

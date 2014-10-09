@@ -22,8 +22,10 @@ namespace Memory
     public partial class FormMemory : Form
     {
         private inputForm inputForm = new inputForm();
+        private inputName inputName = new inputName();
         Label första = null, andra = null;
-
+        private int Elapsed_Time = 0;
+        private string CurrentPlayer;
         private void RitaIkoner()
         {//Funktion som ritar ut random ikon i rutorna.
 
@@ -53,8 +55,15 @@ namespace Memory
         {
             InitializeComponent();
             RitaIkoner();
+
+            this.inputName.ShowDialog(this);
+            CurrentPlayer = inputName.NAME;
         }
 
+        private void HighScore()
+        {
+
+        }
         private void label_click(object sender, EventArgs e)
         {//Funktion som anropas när man trycker på en ruta.
            
@@ -70,6 +79,7 @@ namespace Memory
             if (första == null)
             {/*Om första är null så har man inte klickat än,
                dvs första gången man klickar.*/
+                timerElapsed.Start();//Startar timer som visar förfluten tid.
                 första = markerad;
                 första.ForeColor = Color.Blue;
                 return;
@@ -79,10 +89,8 @@ namespace Memory
                 andra = markerad;
                 andra.ForeColor = Color.Blue;
 
-                if (CheckForWinner())
-                    /*Kollar om man har vunnit varje gång man har visat två ikoner.
-                     * Funktionen returnerar true om en vinnare hittas och annars false.*/
-                    MessageBox.Show("Du vann");    
+                CheckForWinner();
+                //Kollar om man har vunnit varje gång man har visat två ikoner.                                
             }
 
             if (första.Text == andra.Text)
@@ -96,7 +104,7 @@ namespace Memory
                  och döljer dem igen*/
                 timer1.Start();
         }
-        private bool CheckForWinner()
+        private void CheckForWinner()
         {/*Kontrollerar om  vinnare finns.
           * Returnerar true om vinnare finns, annars false */
             foreach (Control control in tableLayoutPanel1.Controls)
@@ -108,13 +116,14 @@ namespace Memory
                     if (ikonText.ForeColor == ikonText.BackColor)
                         /*Vinnare finns om ingen rutas färg är samma som dess bakgrund.
                           dvs. om denna if aldrig blir sann */
-                        return false;
+                        return;
                 }
-                else
-                    return false;
             }
             //Om foreach-loopen går igenom allt och kommer hit så har en vinnare hittas
-            return true;
+            string GameOver = string.Format("{0} vann på {1} sekunder. Bra jobbat!", CurrentPlayer, Elapsed_Time);
+            MessageBox.Show(GameOver);
+
+            return;
         }
 
         private void Delay_ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,6 +153,11 @@ namespace Memory
             timer2.Stop();
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
         }
+        private void timerElapsed_Tick(object sender, EventArgs e)
+        {
+            Elapsed_Time++;
+            labelTime.Text = Convert.ToString(Elapsed_Time);
+        }
         private void fuskaToolStripMenuItem_Click(object sender, EventArgs e)
         {//Funktion för att fuska, ändrar bakgrundsfärgen temporärt så man ser alla ikoner.
             timer2.Start();
@@ -164,5 +178,6 @@ namespace Memory
             }
             
         }
+
     }
 }

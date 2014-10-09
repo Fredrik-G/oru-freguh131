@@ -1,4 +1,4 @@
-﻿namespace Memory
+namespace Memory
 {
     partial class inputForm
     {
@@ -42,7 +42,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(209, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Ange hur länge omatchande kort ska visas";
+            this.label1.Text = "Ange hur l�nge omatchande kort ska visas";
             // 
             // label2
             // 

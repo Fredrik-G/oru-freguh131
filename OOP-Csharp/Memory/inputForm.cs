@@ -28,5 +28,14 @@ namespace Memory
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {//Enter = OK
+            if (e.KeyCode == Keys.Enter)
+            {
+                DialogResult = DialogResult.OK;
+                DELAY = Convert.ToInt16(this.comboBox1.Text);
+            }
+        }
     }
 }

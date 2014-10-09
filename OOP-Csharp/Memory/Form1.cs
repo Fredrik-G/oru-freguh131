@@ -10,6 +10,15 @@ using System.Windows.Forms;
 
 namespace Memory
 {
+    /// <summary>
+    /// Programmet är uppbyggt av 16 labels (System.Windows.Forms.Label).
+    /// Labels "får" en ikon m.h.a. en bokstav och en font/teckensnitt(Webdings) som är uppbyggd av ikoner istället för vanliga bokstäver.
+    /// T.e.x 's' blir '?' med fonten.
+    /// 
+    /// Ikonerna visas/göms m.h.a att ändra färgen på label. 
+    /// </summary>
+    
+    
     public partial class FormMemory : Form
     {
         private inputForm inputForm = new inputForm();
@@ -17,15 +26,16 @@ namespace Memory
 
         private void RitaIkoner()
         {//Funktion som ritar ut random ikon i rutorna.
+
             List<string> ikoner = new List<string>() 
-            { 
+            {//Lista med bokstäver som kommer representera ikoner i programmet.
                 "!", "!", "N", "N", "H", "H", "j", "j",
                   "b", "b", "¨", "¨", "Y", "Y", "Ä", "Ä"
             };
-            Random random = new Random();
-            
+
+            Random random = new Random();           
             foreach (Control control in tableLayoutPanel1.Controls)
-            {
+            {//Går igenom alla labels/ikoner i programmet.
                 Label ikonText = control as Label;
                 if (ikonText != null)
                 {//Slumpar fram en random bokstav ur listan och tar sedan bort den.
@@ -87,7 +97,8 @@ namespace Memory
                 timer1.Start();
         }
         private bool CheckForWinner()
-        {//Kontrollerar om  vinnare finns.
+        {/*Kontrollerar om  vinnare finns.
+          * Returnerar true om vinnare finns, annars false */
             foreach (Control control in tableLayoutPanel1.Controls)
             {
                 Label ikonText = control as Label;
@@ -122,19 +133,19 @@ namespace Memory
 
         private void timer1_Tick(object sender, EventArgs e)
         {/*Timer som ger delay och döljer de senaste klickade rutorna
-           Utan en timer så hade man inte hunnit se ikonen om de inte matchade*/
+           Utan en timer så hade man inte hunnit se ikonen om de inte matchade.*/
             timer1.Stop();
             första.ForeColor = första.BackColor;
             andra.ForeColor = andra.BackColor;
             första = andra = null;
         }
         private void timer2_Tick(object sender, EventArgs e)
-        {
+        {//Timer som används tillsammans med fusk.
             timer2.Stop();
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
         }
         private void fuskaToolStripMenuItem_Click(object sender, EventArgs e)
-        {//Funktion för att fuska, ändrar bakgrundsfärgen så man ser alla ikoner.
+        {//Funktion för att fuska, ändrar bakgrundsfärgen temporärt så man ser alla ikoner.
             timer2.Start();
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
         }

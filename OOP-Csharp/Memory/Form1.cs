@@ -66,7 +66,6 @@ namespace Memory
 
         private void label_click(object sender, EventArgs e)
         {//Funktion som anropas när man trycker på en ruta.
-           
             Label markerad = sender as Label;
 
             if (timer1.Enabled == true)
@@ -124,9 +123,9 @@ namespace Memory
                 }
             }
             //Om foreach-loopen går igenom allt och kommer hit så har en vinnare hittas
-            string GameOver = string.Format("{0} vann på {1} sekunder. Bra jobbat!", CurrentPlayer, Elapsed_Time);
+            string GameOver = string.Format("{0} vann på {1} sekunder med {2} drag. Bra jobbat!", CurrentPlayer, Elapsed_Time, Moves);
             MessageBox.Show(GameOver);
-
+            
             return;
         }
 
@@ -216,7 +215,5 @@ namespace Memory
             }
             
         }
-
-
     }
 }

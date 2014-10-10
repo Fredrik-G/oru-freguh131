@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMemory));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -53,6 +54,7 @@
             this.aktiveraFuskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.börjaOmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nySpelareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visaHighscoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuskaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timerElapsed = new System.Windows.Forms.Timer(this.components);
@@ -60,7 +62,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.labelMoves = new System.Windows.Forms.Label();
-            this.visaHighscoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -366,6 +367,12 @@
             this.nySpelareToolStripMenuItem.Text = "Ny spelare";
             this.nySpelareToolStripMenuItem.Click += new System.EventHandler(this.nySpelareToolStripMenuItem_Click);
             // 
+            // visaHighscoreToolStripMenuItem
+            // 
+            this.visaHighscoreToolStripMenuItem.Name = "visaHighscoreToolStripMenuItem";
+            this.visaHighscoreToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.visaHighscoreToolStripMenuItem.Text = "Visa highscore";
+            // 
             // fuskaToolStripMenuItem
             // 
             this.fuskaToolStripMenuItem.Name = "fuskaToolStripMenuItem";
@@ -420,12 +427,6 @@
             this.labelMoves.TabIndex = 5;
             this.labelMoves.Text = "0";
             // 
-            // visaHighscoreToolStripMenuItem
-            // 
-            this.visaHighscoreToolStripMenuItem.Name = "visaHighscoreToolStripMenuItem";
-            this.visaHighscoreToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.visaHighscoreToolStripMenuItem.Text = "Visa highscore";
-            // 
             // FormMemory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -438,7 +439,8 @@
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

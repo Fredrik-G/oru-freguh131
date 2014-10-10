@@ -74,7 +74,10 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "inputName";
+            this.ShowInTaskbar = false;
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.inputName_FormClosing);
+            this.Load += new System.EventHandler(this.inputName_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

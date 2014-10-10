@@ -16,6 +16,7 @@ namespace Memory
         public inputName()
         {
             InitializeComponent();
+            textBox1.Focus();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -52,6 +53,11 @@ namespace Memory
                 e.Cancel = true;
             }
             
+        }
+
+        private void inputName_Load(object sender, EventArgs e)
+        {
+            textBox1.Focus();
         }
 
     }

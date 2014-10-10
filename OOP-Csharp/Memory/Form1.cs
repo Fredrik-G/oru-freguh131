@@ -62,14 +62,8 @@ namespace Memory
             CurrentPlayer = inputName.NAME;
             string title = string.Format("Memory - {0}", CurrentPlayer);
             this.Text = title;
-           
-            this.highscore.ShowDialog(this);
         }
 
-        private void HighScore()
-        {
-
-        }
         private void label_click(object sender, EventArgs e)
         {//Funktion som anropas när man trycker på en ruta.
            

@@ -52,11 +52,15 @@
             this.Delay_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aktiveraFuskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.börjaOmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nySpelareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuskaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timerElapsed = new System.Windows.Forms.Timer(this.components);
             this.labelTime = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.labelMoves = new System.Windows.Forms.Label();
+            this.visaHighscoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +99,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(542, 474);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(598, 508);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label16
@@ -103,9 +107,9 @@
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label16.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label16.Location = new System.Drawing.Point(410, 356);
+            this.label16.Location = new System.Drawing.Point(452, 380);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(127, 116);
+            this.label16.Size = new System.Drawing.Size(141, 126);
             this.label16.TabIndex = 16;
             this.label16.Text = "s";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -116,9 +120,9 @@
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label15.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label15.Location = new System.Drawing.Point(275, 356);
+            this.label15.Location = new System.Drawing.Point(303, 380);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(127, 116);
+            this.label15.Size = new System.Drawing.Size(141, 126);
             this.label15.TabIndex = 15;
             this.label15.Text = "s";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -129,9 +133,9 @@
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label14.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label14.Location = new System.Drawing.Point(140, 356);
+            this.label14.Location = new System.Drawing.Point(154, 380);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 116);
+            this.label14.Size = new System.Drawing.Size(141, 126);
             this.label14.TabIndex = 14;
             this.label14.Text = "s";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,9 +146,9 @@
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label13.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label13.Location = new System.Drawing.Point(5, 356);
+            this.label13.Location = new System.Drawing.Point(5, 380);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(127, 116);
+            this.label13.Size = new System.Drawing.Size(141, 126);
             this.label13.TabIndex = 13;
             this.label13.Text = "s";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,9 +159,9 @@
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label12.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label12.Location = new System.Drawing.Point(410, 238);
+            this.label12.Location = new System.Drawing.Point(452, 254);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(127, 116);
+            this.label12.Size = new System.Drawing.Size(141, 124);
             this.label12.TabIndex = 12;
             this.label12.Text = "s";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,9 +172,9 @@
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label11.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label11.Location = new System.Drawing.Point(275, 238);
+            this.label11.Location = new System.Drawing.Point(303, 254);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(127, 116);
+            this.label11.Size = new System.Drawing.Size(141, 124);
             this.label11.TabIndex = 11;
             this.label11.Text = "s";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,9 +185,9 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label10.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label10.Location = new System.Drawing.Point(140, 238);
+            this.label10.Location = new System.Drawing.Point(154, 254);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(127, 116);
+            this.label10.Size = new System.Drawing.Size(141, 124);
             this.label10.TabIndex = 10;
             this.label10.Text = "s";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,9 +198,9 @@
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label9.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label9.Location = new System.Drawing.Point(5, 238);
+            this.label9.Location = new System.Drawing.Point(5, 254);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(127, 116);
+            this.label9.Size = new System.Drawing.Size(141, 124);
             this.label9.TabIndex = 9;
             this.label9.Text = "s";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -207,9 +211,9 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label8.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label8.Location = new System.Drawing.Point(410, 120);
+            this.label8.Location = new System.Drawing.Point(452, 128);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 116);
+            this.label8.Size = new System.Drawing.Size(141, 124);
             this.label8.TabIndex = 8;
             this.label8.Text = "s";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -220,9 +224,9 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label7.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label7.Location = new System.Drawing.Point(275, 120);
+            this.label7.Location = new System.Drawing.Point(303, 128);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 116);
+            this.label7.Size = new System.Drawing.Size(141, 124);
             this.label7.TabIndex = 7;
             this.label7.Text = "s";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -233,9 +237,9 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label6.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label6.Location = new System.Drawing.Point(140, 120);
+            this.label6.Location = new System.Drawing.Point(154, 128);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(127, 116);
+            this.label6.Size = new System.Drawing.Size(141, 124);
             this.label6.TabIndex = 6;
             this.label6.Text = "s";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -246,9 +250,9 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.Location = new System.Drawing.Point(5, 120);
+            this.label5.Location = new System.Drawing.Point(5, 128);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 116);
+            this.label5.Size = new System.Drawing.Size(141, 124);
             this.label5.TabIndex = 5;
             this.label5.Text = "s";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -259,9 +263,9 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(410, 2);
+            this.label4.Location = new System.Drawing.Point(452, 2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 116);
+            this.label4.Size = new System.Drawing.Size(141, 124);
             this.label4.TabIndex = 4;
             this.label4.Text = "s";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -272,9 +276,9 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label3.Location = new System.Drawing.Point(275, 2);
+            this.label3.Location = new System.Drawing.Point(303, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 116);
+            this.label3.Size = new System.Drawing.Size(141, 124);
             this.label3.TabIndex = 3;
             this.label3.Text = "s";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -285,9 +289,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Webdings", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(140, 2);
+            this.label2.Location = new System.Drawing.Point(154, 2);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 116);
+            this.label2.Size = new System.Drawing.Size(141, 124);
             this.label2.TabIndex = 2;
             this.label2.Text = "s";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -300,7 +304,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label1.Location = new System.Drawing.Point(5, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 116);
+            this.label1.Size = new System.Drawing.Size(141, 124);
             this.label1.TabIndex = 1;
             this.label1.Text = "s";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -316,10 +320,12 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.inställningarToolStripMenuItem,
             this.börjaOmToolStripMenuItem,
+            this.nySpelareToolStripMenuItem,
+            this.visaHighscoreToolStripMenuItem,
             this.fuskaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(598, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -353,6 +359,13 @@
             this.börjaOmToolStripMenuItem.Text = "Börja om";
             this.börjaOmToolStripMenuItem.Click += new System.EventHandler(this.börjaOmToolStripMenuItem_Click);
             // 
+            // nySpelareToolStripMenuItem
+            // 
+            this.nySpelareToolStripMenuItem.Name = "nySpelareToolStripMenuItem";
+            this.nySpelareToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.nySpelareToolStripMenuItem.Text = "Ny spelare";
+            this.nySpelareToolStripMenuItem.Click += new System.EventHandler(this.nySpelareToolStripMenuItem_Click);
+            // 
             // fuskaToolStripMenuItem
             // 
             this.fuskaToolStripMenuItem.Name = "fuskaToolStripMenuItem";
@@ -374,7 +387,7 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(517, 8);
+            this.labelTime.Location = new System.Drawing.Point(574, 8);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(13, 13);
             this.labelTime.TabIndex = 2;
@@ -383,18 +396,44 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(494, 8);
+            this.label18.Location = new System.Drawing.Point(551, 8);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(25, 13);
             this.label18.TabIndex = 3;
             this.label18.Text = "Tid:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(484, 8);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Antal drag:";
+            // 
+            // labelMoves
+            // 
+            this.labelMoves.AutoSize = true;
+            this.labelMoves.Location = new System.Drawing.Point(536, 8);
+            this.labelMoves.Name = "labelMoves";
+            this.labelMoves.Size = new System.Drawing.Size(13, 13);
+            this.labelMoves.TabIndex = 5;
+            this.labelMoves.Text = "0";
+            // 
+            // visaHighscoreToolStripMenuItem
+            // 
+            this.visaHighscoreToolStripMenuItem.Name = "visaHighscoreToolStripMenuItem";
+            this.visaHighscoreToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.visaHighscoreToolStripMenuItem.Text = "Visa highscore";
             // 
             // FormMemory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(542, 498);
+            this.ClientSize = new System.Drawing.Size(598, 532);
+            this.Controls.Add(this.labelMoves);
+            this.Controls.Add(this.label17);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -443,6 +482,10 @@
         private System.Windows.Forms.Timer timerElapsed;
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label labelMoves;
+        private System.Windows.Forms.ToolStripMenuItem nySpelareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visaHighscoreToolStripMenuItem;
     }
 }
 

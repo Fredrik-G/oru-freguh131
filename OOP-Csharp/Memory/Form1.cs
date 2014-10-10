@@ -23,8 +23,10 @@ namespace Memory
     {
         private inputForm inputForm = new inputForm();
         private inputName inputName = new inputName();
+        private Highscore highscore = new Highscore();
         Label första = null, andra = null;
         private int Elapsed_Time = 0;
+        private int Moves = 0;
         private string CurrentPlayer;
         private void RitaIkoner()
         {//Funktion som ritar ut random ikon i rutorna.
@@ -58,6 +60,10 @@ namespace Memory
 
             this.inputName.ShowDialog(this);
             CurrentPlayer = inputName.NAME;
+            string title = string.Format("Memory - {0}", CurrentPlayer);
+            this.Text = title;
+           
+            this.highscore.ShowDialog(this);
         }
 
         private void HighScore()
@@ -89,8 +95,12 @@ namespace Memory
                 andra = markerad;
                 andra.ForeColor = Color.Blue;
 
+                //Kollar om man har vunnit varje gång man har visat två ikoner. 
                 CheckForWinner();
-                //Kollar om man har vunnit varje gång man har visat två ikoner.                                
+                
+                //Ökar antal drag och visar antalet i en label.
+                Moves++;
+                labelMoves.Text = Convert.ToString(Moves);                               
             }
 
             if (första.Text == andra.Text)
@@ -135,9 +145,43 @@ namespace Memory
         }
 
         private void börjaOmToolStripMenuItem_Click(object sender, EventArgs e)
-        {//Ritar om alla ikoner.
+        {//Börjar om
             if (MessageBox.Show("Är du säker på att du vill börja om?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {    
+                //Nollställer tid 
+                Elapsed_Time = 0;
+                labelTime.Text = "0";
+                timerElapsed.Stop();
+
+                //Nollställer antal drag
+                Moves = 0;
+                labelMoves.Text = "0";
+
+                //Slumpar nya ikoner och ritar ut dem
                 RitaIkoner();
+            }
+        }
+        private void nySpelareToolStripMenuItem_Click(object sender, EventArgs e)
+        {//Ny spelare.
+            if (MessageBox.Show("Är du säker?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.inputName.ShowDialog(this);
+                CurrentPlayer = inputName.NAME;
+                string title = string.Format("Memory - {0}", CurrentPlayer);
+                this.Text = title;
+
+                //Nollställer tid 
+                Elapsed_Time = 0;
+                labelTime.Text = "0";
+                timerElapsed.Stop();
+
+                //Nollställer antal drag
+                Moves = 0;
+                labelMoves.Text = "0";
+
+                //Slumpar nya ikoner och ritar ut dem
+                RitaIkoner();
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -178,6 +222,7 @@ namespace Memory
             }
             
         }
+
 
     }
 }

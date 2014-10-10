@@ -68,7 +68,7 @@ namespace Memory
         {//Funktion som anropas när man trycker på en ruta.
             Label markerad = sender as Label;
 
-            if (timer1.Enabled == true)
+            if (timerFlipIncorrect.Enabled == true)
                 //ignorera knapptryck när timern är aktiv
                 return;
             if (markerad.ForeColor == Color.Blue)
@@ -105,7 +105,7 @@ namespace Memory
             else
                 /*annars så startas timern som väntar 0.8s
                  och döljer dem igen*/
-                timer1.Start();
+                timerFlipIncorrect.Start();
         }
         private void CheckForWinner()
         {/*Kontrollerar om  vinnare finns.
@@ -133,7 +133,7 @@ namespace Memory
         {//Funktion för att låta användaren ändra hur länge omatchade ikoner ska visas.
             if (this.inputForm.ShowDialog(this) == DialogResult.OK)
             {//DELAY är en propery och används här för att läsa värdet användaren skrev in.
-                timer1.Interval = inputForm.DELAY;
+                timerFlipIncorrect.Interval = inputForm.DELAY;
             }
         }
 
@@ -177,27 +177,27 @@ namespace Memory
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timerFlipIncorrect_Tick(object sender, EventArgs e)
         {/*Timer som ger delay och döljer de senaste klickade rutorna
            Utan en timer så hade man inte hunnit se ikonen om de inte matchade.*/
-            timer1.Stop();
+            timerFlipIncorrect.Stop();
             första.ForeColor = första.BackColor;
             andra.ForeColor = andra.BackColor;
             första = andra = null;
         }
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timerCheat_Tick(object sender, EventArgs e)
         {//Timer som används tillsammans med fusk.
-            timer2.Stop();
+            timerCheat.Stop();
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
         }
         private void timerElapsed_Tick(object sender, EventArgs e)
-        {
+        {//Timer med en sekund intervall som används för att räkna upp förfluten tid.
             Elapsed_Time++;
             labelTime.Text = Convert.ToString(Elapsed_Time);
         }
         private void fuskaToolStripMenuItem_Click(object sender, EventArgs e)
         {//Funktion för att fuska, ändrar bakgrundsfärgen temporärt så man ser alla ikoner.
-            timer2.Start();
+            timerCheat.Start();
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
         }
         private void aktiveraFuskToolStripMenuItem_Click(object sender, EventArgs e)

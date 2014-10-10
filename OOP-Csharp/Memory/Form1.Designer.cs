@@ -47,7 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerFlipIncorrect = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.inställningarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Delay_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +56,7 @@
             this.nySpelareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visaHighscoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fuskaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timerCheat = new System.Windows.Forms.Timer(this.components);
             this.timerElapsed = new System.Windows.Forms.Timer(this.components);
             this.labelTime = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -311,10 +311,10 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label_click);
             // 
-            // timer1
+            // timerFlipIncorrect
             // 
-            this.timer1.Interval = 700;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerFlipIncorrect.Interval = 700;
+            this.timerFlipIncorrect.Tick += new System.EventHandler(this.timerFlipIncorrect_Tick);
             // 
             // menuStrip1
             // 
@@ -381,10 +381,10 @@
             this.fuskaToolStripMenuItem.Visible = false;
             this.fuskaToolStripMenuItem.Click += new System.EventHandler(this.fuskaToolStripMenuItem_Click);
             // 
-            // timer2
+            // timerCheat
             // 
-            this.timer2.Interval = 150;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timerCheat.Interval = 150;
+            this.timerCheat.Tick += new System.EventHandler(this.timerCheat_Tick);
             // 
             // timerElapsed
             // 
@@ -473,13 +473,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerFlipIncorrect;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem börjaOmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inställningarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Delay_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fuskaToolStripMenuItem;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer timerCheat;
         private System.Windows.Forms.ToolStripMenuItem aktiveraFuskToolStripMenuItem;
         private System.Windows.Forms.Timer timerElapsed;
         private System.Windows.Forms.Label labelTime;

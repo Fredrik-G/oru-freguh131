@@ -26,5 +26,11 @@
     <ClInclude Include="StudentRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Course.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

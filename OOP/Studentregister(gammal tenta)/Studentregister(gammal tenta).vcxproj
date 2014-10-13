@@ -65,6 +65,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Course.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentRegister.h" />
   </ItemGroup>

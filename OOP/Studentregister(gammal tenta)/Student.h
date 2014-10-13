@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "Course.h"
 using namespace std;
 class Student
 {
@@ -34,6 +35,10 @@ public:
 	int GetYear() { return enrollmentYear; }
 	void SetYear(int year){ this->enrollmentYear=year;	}
 
+	void AddCourse(string kurs)
+	{
+		Course course(kurs);
+	}
 	void Read()
 	{
 		setlocale(LC_ALL, "swedish");

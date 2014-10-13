@@ -52,10 +52,11 @@ void Main3_4()
 	sr.Add(s2);
 	sr.Add(s3);
 
-	string s = sr.List();
-	cout << s << endl;
-	cout << s.size() << endl;
-	cout << s.length() << endl;
+	sr.List();
+	//string s = sr.List();
+	//cout << s << endl;
+	//cout << s.size() << endl;
+	//cout << s.length() << endl;
 	system("pause");
 }
 
@@ -78,12 +79,20 @@ void Main3_6()
 
 	sr.ReadFromFile();
 
-	string s = sr.List();
-	cout << s << endl;
+
+	sr.List();
+
+//	string s = sr.List();
+//	cout << s << endl;
 
 	system("pause");
 }
 
+void Main4()
+{
+	StudentRegister sr;
+	sr.Menu();
+}
 
 int main()
 {
@@ -92,6 +101,8 @@ int main()
 	//Main3_3();
 	//Main3_4();
 	//Main3_5();
-	Main3_6();
+	//Main3_6();
+
+	Main4();
 	return 0;
 }

@@ -95,7 +95,8 @@ public:
 	}
 	void AddResult()
 	{
-		string name,course,grade;
+		string name,course;
+		char grade;
 		cout << "Ange studentens namn: ";
 		cin >> name;
 		cout << "Ange kurs: ";
@@ -117,8 +118,6 @@ public:
 	void AddCourse()
 	{
 		string name,course,option;
-		cout << "Vill du lägga till flera kurser samtidigt? y/n: ";
-		cin >> option;
 		cout << "\nAnge studentens namn: ";
 		cin >> name;
 
@@ -129,21 +128,11 @@ public:
 				cout << "\nAnge kurs. ";
 				cin >> course;
 				s.AddCourse(course);
-				if(option.compare("y") != 0)
 					return;
-				else
-				{
-					while(course.compare("q") != 0)
-					{
-						cout << "\nAnge kurs. Gå tillbaka med 'q': ";
-						cin >> course;
-						s.AddCourse(course);
-					}
-					return;
-				}
+			}
 
 			}
-		}
+		
 		cout << "Studenten " << name << " hittades inte i registret\n";
 	}
 	void ListCourses()

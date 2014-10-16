@@ -5,17 +5,17 @@ using namespace std;
 class Result
 {
 private:
-	string grade;
+	char grade;
 public:
 
-	Result(){grade="N/A";}
+	Result(){grade='/';}
 
-	Result(string grade) 
+	Result(char grade) 
 	{
 		this->grade=grade;
 	}
 
-	string GetResult(){ return grade; }
+	char GetResult(){ return grade; }
 
 	~Result(){}
 };

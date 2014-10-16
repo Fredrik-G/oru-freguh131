@@ -7,6 +7,7 @@ class Course
 {
 private:
 	string name;
+	int year;
 	vector<Result> resultVector;
 public:
 
@@ -16,21 +17,21 @@ public:
 	void SetCourse(string kurs){ name=kurs; }
 	string GetCourse(){	return name; }
 
-	void AddResult(string grade)
+	void AddResult(char grade)
 	{
-		resultVector.push_back(grade);
+		resultVector.push_back(Result(grade));
 	}
 	string GetResult()
 	{
-		string result="";
+		ostringstream oss;
 		int r_iterations = 0;
 		for(auto &r : resultVector)
 		{
 			r_iterations++;
-			result += r_iterations;
-			result += ":" + r.GetResult() + " ";
+			oss << r_iterations;
+			oss << ":" << r.GetResult() << " ";
 		}
-		return result;
+		return oss.str();
 	}
 
 	~Course(){ }

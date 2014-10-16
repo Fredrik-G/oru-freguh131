@@ -66,9 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Course.h" />
+    <ClInclude Include="English.h" />
+    <ClInclude Include="LanguageCourse.h" />
+    <ClInclude Include="Mathematics.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentRegister.h" />
+    <ClInclude Include="Swedish.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

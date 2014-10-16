@@ -42,7 +42,7 @@ public:
 	{
 		courseVector.push_back(kurs);
 	}
-	void AddResult(string kurs, string grade)
+	void AddResult(string kurs, char grade)
 	{
 		for(auto &c : courseVector)
 		{

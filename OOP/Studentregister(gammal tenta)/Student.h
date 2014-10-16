@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
 #include "Course.h"
 using namespace std;
 class Student
@@ -11,6 +12,8 @@ class Student
 private:
 	string firstName, secondName;
 	int enrollmentYear;
+	vector<Course> courseVector;
+
 public:
 	
 	Student()
@@ -23,7 +26,7 @@ public:
 	{
 		this->firstName=firstName;
 		this->secondName=secondName;
-		this->enrollmentYear=enrollmentYear;
+		this->enrollmentYear=enrollmentYear;	
 	}
 
 	string GetFirstName() { return firstName; }
@@ -37,7 +40,28 @@ public:
 
 	void AddCourse(string kurs)
 	{
-		Course course(kurs);
+		courseVector.push_back(kurs);
+	}
+	void AddResult(string kurs, string grade)
+	{
+		for(auto &c : courseVector)
+		{
+			if(kurs.compare(c.GetCourse()) == 0)
+			{
+				c.AddResult(grade);
+				return;
+			}
+		}
+	cout << "Kursen " << kurs << " hittades inte i registret\n";
+
+	}
+
+	void ListCourses()
+	{
+		for(auto &c : courseVector)
+		{
+			cout << c.GetCourse() << " - "  << c.GetResult() << endl;
+		}
 	}
 	void Read()
 	{
@@ -67,7 +91,6 @@ public:
 		return out;
 	}
 	
-
 	friend istream & operator>>(istream &in, Student &Student)
 	{//På formen (firstName,secondName,enrollmentYear)
 		string s;

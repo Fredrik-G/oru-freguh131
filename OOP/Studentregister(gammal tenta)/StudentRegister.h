@@ -20,15 +20,16 @@ public:
 		while(1)
 		{
 			setlocale(LC_ALL, "swedish");
-			
+			cout << endl;
 			cout << "1. Lägg till en student\n"
 					"2. Ta bort en student\n"
 					"3. Lägg till ny kurs för en viss student\n"
 					"4. Uppdatera resultat i en students kurs\n"
-					"5. Lista alla studenter i registret\n"
-					"6. Spara alla studenter till en textfil\n"
-					"7. Läs in studenter från en textfil\n"
-					"99. Avsluta programmet \n";
+					"5. Visa en viss students kurser och resultat\n"
+					"6. Lista alla studenter i registret\n"
+					"7. Spara alla studenter till en textfil\n"
+					"8. Läs in studenter från en textfil\n"
+					"99. Avsluta programmet\n";
 			cout << "Välj alternativ: ";
 			cin >> option;
 			cout << endl;
@@ -45,13 +46,19 @@ public:
 			case 3:
 				AddCourse();
 				break;
+			case 4:
+				AddResult();
+				break;
 			case 5:
-				List();
+				ListCourses();
 				break;
 			case 6:
-				WriteToFile();
+				ListStudents();
 				break;
 			case 7:
+				WriteToFile();
+				break;
+			case 8:
 				ReadFromFile();
 				break;			
 
@@ -70,37 +77,93 @@ public:
 	}
 	void Delete()
 	{
-		string s;
+		string name;
 		int a_iterations=-1;
 		cout << "Ange förnamn på den student till vill ta bort: ";
-		cin >> s;
+		cin >> name;
 
 		for(auto &a : studentVector)
 		{
 			a_iterations++;
-			if(s.compare(a.GetFirstName()) == 0 )
+			if(name.compare(a.GetFirstName()) == 0 )
 			{
 				studentVector.erase( studentVector.begin() + a_iterations );
 				return;
 			}
 		}	
+		cout << "Studenten " << name << " hittades inte i registret\n";
 	}
-	void AddCourse()
+	void AddResult()
 	{
-		string name,course;
+		string name,course,grade;
 		cout << "Ange studentens namn: ";
 		cin >> name;
-		cout << "\nAnge kurs. ";
+		cout << "Ange kurs: ";
 		cin >> course;
+		cout << "\Ange resultat: ";
+		cin >> grade;
 
-		for(auto &a : studentVector)
+		for(auto &s : studentVector)
 		{
-			if(name.compare(a.GetFirstName()) == 0 )
-				a.AddCourse(course);
+			if(name.compare(s.GetFirstName()) == 0 )
+			{
+				s.AddResult(course,grade);
+				return;
+			}
 		}
+		cout << "Studenten " << name << " hittades inte i registret\n";
 	}
 
-	void List()
+	void AddCourse()
+	{
+		string name,course,option;
+		cout << "Vill du lägga till flera kurser samtidigt? y/n: ";
+		cin >> option;
+		cout << "\nAnge studentens namn: ";
+		cin >> name;
+
+		for(auto &s : studentVector)
+		{
+			if(name.compare(s.GetFirstName()) == 0 )
+			{
+				cout << "\nAnge kurs. ";
+				cin >> course;
+				s.AddCourse(course);
+				if(option.compare("y") != 0)
+					return;
+				else
+				{
+					while(course.compare("q") != 0)
+					{
+						cout << "\nAnge kurs. Gå tillbaka med 'q': ";
+						cin >> course;
+						s.AddCourse(course);
+					}
+					return;
+				}
+
+			}
+		}
+		cout << "Studenten " << name << " hittades inte i registret\n";
+	}
+	void ListCourses()
+	{
+		string name;
+		cout << "Ange studentens namn: ";
+		cin >> name;
+
+		for(auto &s : studentVector)
+		{
+			if(name.compare(s.GetFirstName()) == 0 )
+			{
+				s.ListCourses();
+				return;
+			}
+		}
+		cout << "Studenten " << name << " hittades inte i registret\n";
+	}
+
+	void ListStudents()
 	{
 		ostringstream oss;
 		string s;
@@ -116,9 +179,9 @@ public:
 		ofstream fout;
 		fout.open("studenter.txt");
 		
-		for(auto &a : studentVector)
+		for(auto &s : studentVector)
 		{
-			fout << a << endl;
+			fout << s << endl;
 		}
 	fout.close();
 

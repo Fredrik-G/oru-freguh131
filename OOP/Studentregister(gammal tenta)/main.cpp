@@ -52,7 +52,7 @@ void Main3_4()
 	sr.Add(s2);
 	sr.Add(s3);
 
-	sr.List();
+	sr.ListStudents();
 	//string s = sr.List();
 	//cout << s << endl;
 	//cout << s.size() << endl;
@@ -80,7 +80,7 @@ void Main3_6()
 	sr.ReadFromFile();
 
 
-	sr.List();
+	sr.ListStudents();
 
 //	string s = sr.List();
 //	cout << s << endl;

@@ -6,6 +6,10 @@ EndProject
 Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "SpelProjektContent", "SpelProjekt\SpelProjektContent\SpelProjektContent.contentproj", "{7D28F7D5-4197-49AD-992A-49F525E7102D}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86

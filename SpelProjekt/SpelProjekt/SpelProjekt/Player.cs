@@ -22,11 +22,6 @@ namespace SpelProjekt
 
         float radius = 50.0f;
 
-        float blinkTime = 0.0f;
-        float blinkTimeTotal = 0.0f;
-        bool blinkOn = false;
-        bool recoveringActive = false;
-        const float recoverLength = 3.0f;
 
         //Total number of lives
         int lives = 5;
@@ -74,38 +69,11 @@ namespace SpelProjekt
 
             position.X = Mouse.GetState().X;
             position.Y = Mouse.GetState().Y;
-
-            if (recoveringActive)
-            {
-                const float blinkTimeSlice = 1.0f / 15.0f;
-                float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                blinkTime += elapsed;
-                blinkTimeTotal += elapsed;
-                if (blinkTimeTotal > recoverLength)
-                    recoveringActive = false;
-                else
-                {
-                    if (blinkTime > blinkTimeSlice)
-                    {
-                        blinkOn = !blinkOn;
-                        blinkTime = 0.0f;
-                    }
-                }
-            }
         }
         public bool CollisionTest(Vector2 point, float radius)
         {
-            if ((point - position).Length() < this.radius + radius)
-            {
-                if (!recoveringActive)
-                {
-                    lives--;
-                    recoveringActive = true;
-                    blinkTimeTotal = 0.0f;
-                }
-                
+            if ((point - position).Length() < this.radius + radius)            
                 return true;
-            }
             return false;
         }
 

@@ -12,49 +12,56 @@ using Microsoft.Xna.Framework.Media;
 
 namespace SpelProjekt
 {
-    class Enemy
+    class Friendly
     {
         Vector2 position;
         Texture2D picture;
+        Texture2D madPicture;
         float speed;
         public float Speed { get { return speed; } }
-        float deltaX = 2.0f;
-        float yLength = 0.0f;
-        float yStart = 0.0f;
-
+        float deltaX = 0.0f;
         float radius = 40.0f;
         public float Radius { get { return radius; } }
 
-        public Enemy(Texture2D picture, Vector2 startPosition, float speed)
+        /* Variabel som används för att visa att friendly blev arg
+         * och att den går tillbaka. */
+        int mad = 0;
+        public int Mad
+        {
+            set { mad = value; }
+            get { return mad; }
+        }
+
+        public Friendly(Texture2D picture, Vector2 startPosition, float speed, float deltaX, Texture2D madPicture = null)
         {
             this.picture = picture;
             position = startPosition;
             this.speed = speed;
-        }
-        public void SetNinjaMoves(float deltaX, float yLength)
-        {
             this.deltaX = deltaX;
-            this.yLength = yLength;
-            yStart = position.Y;
+            this.madPicture = madPicture;
         }
-        public Vector2 Position
-        {
-            get { return position; }
+        public Vector2 Position { get { return position; }
         }
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(picture, position, null, Color.White, 0.0f, new Vector2(
-            40.0f, 20.0f), 1.0f, SpriteEffects.None, 0.0f);
+            if (mad == 0)
+                batch.Draw(picture, position, null, Color.White, 0.0f, new Vector2(
+                    40.0f, 20.0f), 1.0f, SpriteEffects.None, 0.0f);
+            else if (mad == 1 && madPicture != null)
+            {          
+                batch.Draw(madPicture, position, null, Color.White, 0.0f, new Vector2(
+                    40.0f, 20.0f), 1.0f, SpriteEffects.None, 0.0f);
+            }
         }
         public void Update(GameTime gameTime)
         {
-            //Ninja moves
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Flyttar den åt vänster
+            if (mad == 0)
+                position.X -= speed * elapsed;
+            else if (mad == 1)
+                position.X += speed * elapsed;
             position.Y += deltaX * elapsed;
-            if (Position.Y < yStart - yLength || Position.Y > yStart + yLength)
-                deltaX *= -1.0f;
-            //Flyttar motståndaren åt vänster
-            position.X -= speed * elapsed;         
         }
         public int CollisionBullet(List<Bullet> bulletList)
         {//Kollar om en av spelarens skott träffade en motståndare.
@@ -65,9 +72,15 @@ namespace SpelProjekt
             }
             return -1;
         }
+        public void MoveBack(GameTime gameTime)
+        {
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Flyttar åt höger
+            position.X += speed * elapsed;
+        }
         public void Destroy()
         {
-             
+
         }
     }
 }

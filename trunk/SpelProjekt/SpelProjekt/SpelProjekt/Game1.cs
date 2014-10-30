@@ -20,13 +20,14 @@ namespace SpelProjekt
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        /* Spelet har tre olika lägen, en som agerar som startskärm,
+        /* Spelet har fyra olika lägen, en som agerar som startskärm,
          * en som är själv spelet,
          * och en som visas på slutet om man tex får slut på liv.
-         * TODO: lägg in hjälpmeny. */
+         * Det finns även en hjälpmeny som visar hur spelet fungerar.*/
         public enum GameState
         {
             StartScreen,
+            HelpScreen,
             Running,
             EndScreen
         }
@@ -35,6 +36,8 @@ namespace SpelProjekt
         //Start/slut-meny
         Texture2D startScreen;
         Texture2D endScreen;
+        //Hjälpmeny
+        Texture2D helpScreen;
         //Bakgrundsbild
         Texture2D backgroundTexture;
         //Player
@@ -144,6 +147,8 @@ namespace SpelProjekt
             //Start/slut-meny
             startScreen = Content.Load<Texture2D>("startGame");
             endScreen = Content.Load<Texture2D>("endGame");
+            //Hjälpmeny
+            helpScreen = Content.Load<Texture2D>("helpScreen");
 
             //Spelare
             playerTexture = Content.Load<Texture2D>("playerSprite");
@@ -198,8 +203,8 @@ namespace SpelProjekt
             timeSinceEnemySpawn += elapsed;
             timeSinceFriendlySpawn += elapsed;
 
-            //Om start/slut-meny visas
-            if (gameState == GameState.StartScreen || gameState == GameState.EndScreen)
+            //Om något annat än spelet visas
+            if (gameState != GameState.Running)
                 UpdateSplashScreen();
             else //Spelet körs
             {
@@ -210,6 +215,8 @@ namespace SpelProjekt
                     enemyList.Clear();
                     friendlyList.Clear();
                     bulletList.Clear();
+                    player.Lives = 5;
+                    points = 0.0f;
                 }
 
                 player.Update(gameTime);
@@ -260,20 +267,25 @@ namespace SpelProjekt
                     //    if (friendlyList[i].Position.Y > 900.0f)
                     //     friendlyList.RemoveAt(i);
 
-                    //Kollar om en av spelarens skott träffade en motståndare.
+                    //Kollar om en av spelarens skott träffade någon friendly.
                     int collide = friendlyList[i].CollisionBullet(bulletList);
                     if (collide != -1)
                     {
                         if (friendlyList[i].Speed == fågelnRogerSpeed)
+                        {
                             points -= 1000.0f;
+                            friendlyList[i].Mad = 1;
+                            if (fågelHits == 0) fågelHits = 1;
+                            else if (fågelHits == 1) fågelHits = 2;
+                            else if (fågelHits == 2) fågelHits = 3;
+                        }
+                        else if (friendlyList[i].Speed == joltSpeed)
+                            friendlyList.RemoveAt(i);
 
-                        friendlyList[i].Mad = 1;
-                        friendlyList[i].Destroy();
+                //        friendlyList[i].Destroy();
                 //        friendlyList.RemoveAt(i);
                         bulletList.RemoveAt(collide);
-                        if (fågelHits == 0) fågelHits = 1;
-                        else if (fågelHits == 1) fågelHits = 2;
-                        else if (fågelHits == 2) fågelHits = 3;
+
                     }
                     /*Kollar om en friendly har träffat spelaren och tar bort den i så fall.
                      * Ger även extrapoäng.*/
@@ -395,6 +407,8 @@ namespace SpelProjekt
 
             if (gameState == GameState.StartScreen)
                 DrawStartScreen();
+            else if (gameState == GameState.HelpScreen)
+                DrawHelpScreen();
             else if (gameState == GameState.Running)
             {
 
@@ -441,11 +455,35 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
+        //Visa hjälpmenyn
+        private void DrawHelpScreen()
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(helpScreen, new Rectangle(0, 0,
+                    graphics.PreferredBackBufferWidth,
+                    graphics.PreferredBackBufferHeight), Color.White);
+            spriteBatch.End();
+        }
         private void UpdateSplashScreen()
         {
             KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Enter))
-                gameState = GameState.Running;               
+
+            if (gameState == GameState.StartScreen &&
+                keyState.IsKeyDown(Keys.Enter))
+                    gameState = GameState.Running;
+
+            else if (gameState == GameState.StartScreen &&
+                keyState.IsKeyDown(Keys.Space))
+                    gameState = GameState.HelpScreen;
+
+            else if (gameState == GameState.HelpScreen &&
+                keyState.IsKeyDown(Keys.Escape))
+                gameState = GameState.StartScreen;
+
+            else if (gameState == GameState.EndScreen &&
+                keyState.IsKeyDown(Keys.Enter))
+                gameState = GameState.StartScreen;
+
         }
 
         //Skapar en ny random motståndare med x sekunders mellanrum.
@@ -474,7 +512,7 @@ namespace SpelProjekt
         }
         public void CreateFriendlyTime()
         {
-            if (timeSinceFriendlySpawn > 2.2f && timeSinceFriendlySpawn < 2.21f)
+            if (timeSinceFriendlySpawn > 3.2f && timeSinceFriendlySpawn < 3.21f)
             {
                 int randomNumber = random.Next(2);
                 if (randomNumber == 0)
@@ -486,7 +524,7 @@ namespace SpelProjekt
                     CreateFriendly(FriendlyName.jolt);
                 }
             }
-            if (timeSinceFriendlySpawn > 2.22f)
+            if (timeSinceFriendlySpawn > 3.22f)
                 timeSinceFriendlySpawn = 0;
         }
         public void CreateEnemy(EnemyName enemyName)
@@ -518,7 +556,9 @@ namespace SpelProjekt
                     enemyList.Add(enemy);
                     bosseCount++;
                 }
-                if (enemyName == EnemyName.bosse && bosseCount >= 5)
+                if (bosseCount <= 5)
+                    bosseCount++;
+                if (enemyName == EnemyName.bosse && bosseCount >= 6)
                 {//Var femte bosse är en MEGAbosse och är mycket snabbare
                     Enemy enemy = new Enemy(enemyTextureBosse,
                         new Vector2(900, mousePos.Y), bosseSpeed + 300);

@@ -8,15 +8,17 @@ class Building
 {
 private:
 	vector<Room> roomVector;
+	string info;
+	int ID;
 public:
 
-	Building(void)
-	{
-	}
+	Building(void){ info=""; ID = -1;}
 
-	~Building(void)
-	{
-	}
+	~Building(void){}
+	int GetID() { return ID; }
+	void SetID(int ID) { this->ID=ID; }
+	string GetInfo() { return info; }
+	void SetInfo(string info) { this->info=info; }
 
 	void Add(Room rum)
 	{
@@ -66,28 +68,47 @@ public:
 
 		return oss.str();
 	}
+	void Read()
+	{
+		cout << "Ange byggnadens namn: ";
+        cin >> info;
+        cout << "Ange rum, avsluta med 0." << endl;
+        while(1)
+        {
+			Room rum;
+			rum.Read();
+			if (rum.GetType() != "0" && rum.GetArea() != 0)
+				roomVector.push_back(rum);
+			else
+				return;
+		}
+	}
+	void Write()
+	{
+		cout << ID << " " << info << endl;
+	}
 
-	void WriteToFile()
+	void WriteToFile(string filename)
 	{
 		ofstream fout;
-		fout.open("buildings.txt");
-		
+		filename += ".txt";
+		fout.open(filename);
+		fout << "Building " << info << endl;
 		for(auto &a : roomVector)
-		{
 			fout << a << endl;
-		}
 
 		fout.close();
 	}
-	void ReadFromFile()
+	void ReadFromFile(string filename)
 	{
 		roomVector.clear();
 		Room rum;
 		ifstream fin;
-		fin.open("buildings.txt");
+		filename += ".txt";
+		fin.open(filename);
 		if ( !fin.good() )
 		{
-			cout << "Filen buildings.txt går ej att öppna\n";
+			cout << "Filen " << filename << "går ej att öppna\n";
 			return;
 		}
 		while( !fin.eof() )
@@ -112,6 +133,19 @@ public:
 		}
 		return totalArea;
 	}
+	friend istream & operator>>(istream &in, Building &byggnad)
+	{//På formen (id,info)
+		string s;
+		char c;
+		in >> c;
 
+		getline(in, s, ',');
+		istringstream iss(s);
+		iss >> byggnad.ID;
+
+		getline(in, byggnad.info, ')');
+
+		return in;
+	}
 };
 

@@ -20,26 +20,28 @@ public:
 
 	Room(void)
 	{
-		
+		area=-1;
+		type_of_room="";
 	}
-	Room(string type, double area2 = 0)
+	Room(string type_of_room, double area = 0)
 	{	
-		type_of_room = type;
-		area=area2;
+		this->type_of_room = type_of_room;
+		this->area=area;
 	}
 	~Room(void)
 	{
 	}
 
-	void SetArea(double area2) { area=area2; }
+	void SetArea(double area) { this->area=area; }
 	double GetArea() {	return area; }
-
-	void SetType(string type) { type_of_room = type; }
+	void SetType(string type_of_room) { this->type_of_room = type_of_room; }
 	string GetType() { return type_of_room; }
+
 	void Read()
 	{
 		cout << "Ange rummets funktion: ";
 		cin >> type_of_room;
+		if(type_of_room == "0") return;
 		cout << "Ange rummets area: ";
 		cin >> area;
 	}

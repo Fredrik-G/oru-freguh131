@@ -2,6 +2,7 @@
 #include <clocale>
 #include "Room.h"
 #include "Building.h"
+#include "BuildingDatabase.h"
 using namespace std;
 
 void Main3_1_2()
@@ -31,42 +32,47 @@ void Main3_3()
 }
 void Main3_4()
 {
-	Building buildingRegister;
+	Building building;
 	Room rum1("Livingroom",20),
 	     rum2("Bedroom",30),
 		 rum3("Bedroom",40);
 
-	buildingRegister.Add(rum1);
-	buildingRegister.Add(rum2);
-	buildingRegister.Add(rum3);
+	building.Add(rum1);
+	building.Add(rum2);
+	building.Add(rum3);
 
-	cout << buildingRegister.List() << endl;
+	cout << building.List() << endl;
 
-	buildingRegister.Search();
+	building.Search();
 }
 void Main3_5()
 {	
-	Building buildingRegister;
+	Building building;
 	Room rum1("Livingroom",20),
 	     rum2("Bedroom",30),
 		 rum3("Bedroom",40);
 
-	buildingRegister.Add(rum1);
-	buildingRegister.Add(rum2);
-	buildingRegister.Add(rum3);
+	building.Add(rum1);
+	building.Add(rum2);
+	building.Add(rum3);
 
-	buildingRegister.WriteToFile();
+//	building.WriteToFile();
 }
 void Main3_6()
 {
-	Building buildingRegister;
+	Building building;
 
-	buildingRegister.ReadFromFile();
-	cout << buildingRegister.List() << endl;
+	//building.ReadFromFile();
+	cout << building.List() << endl;
 
 	cout << "Area av alla byggnader: "
-		 << buildingRegister.TotalArea()
+		 << building.TotalArea()
 		 << endl;
+}
+void Main4()
+{
+	BuildingDatabase database;
+	database.Menu();
 }
 
 
@@ -77,6 +83,7 @@ int main()
 	//Main3_3();
 	//Main3_4();
 	//Main3_5();
-	Main3_6();
+	//Main3_6();
+	Main4();
 	system("pause");
 }

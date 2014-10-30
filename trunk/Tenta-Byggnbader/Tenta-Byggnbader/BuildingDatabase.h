@@ -6,10 +6,10 @@
 #include "Room.h"
 using namespace std;
 class BuildingDatabase:
-	public Building
+	public vector<Building>
 {
 private:
-	vector<Building> databas;
+	
 public:
 
 	BuildingDatabase(void)
@@ -74,7 +74,7 @@ public:
 		cout << "Ange byggnadens unika ID: ";
 		cin >> id;
 		//Kolla så id är unikt
-		for(auto &a : databas)
+		for(auto &a : (*this))
 		{
 			if(a.GetID() == id)
 			{
@@ -86,7 +86,7 @@ public:
 		byggnad.SetID(id);
 		
 		byggnad.Read();
-		databas.push_back(byggnad);
+		(*this).push_back(byggnad);
 
 	}
 	void DeleteBuilding()
@@ -95,12 +95,12 @@ public:
 		cout << "Ange ID på den byggnad du vill ta bort: ";
 		cin >> id;
 
-		for(int i=0; i<databas.size(); i++)
+		for(int i=0; i<(*this).size(); i++)
 		{
 			a_iterations++;
-			if(databas[i].GetID() == id)
+			if((*this)[i].GetID() == id)
 			{
-				databas.erase(databas.begin() + a_iterations);
+				(*this).erase((*this).begin() + a_iterations);
 				return;
 			}
 		}
@@ -112,7 +112,7 @@ public:
 		cout << "Ange ID på den byggnad du vill visa: ";
 		cin >> id;
 
-		for(auto &a : databas)
+		for(auto &a : (*this))
 		{
 			if(a.GetID() == id)
 			{
@@ -125,23 +125,23 @@ public:
 
 	void ListBuildings()
 	{
-		for (int i=0; i<databas.size(); i++)
-			databas[i].Write();	
+		for (int i=0; i<(*this).size(); i++)
+			(*this)[i].Write();	
 	}
 	void Area()
 	{
 		double totalArea = 0;
-		for(auto &a : databas)
+		for(auto &a : (*this))
 			totalArea += a.TotalArea();
 		cout << totalArea << endl;
 	}
 
 	void ReadFile()
 	{
-		databas.clear();
+		(*this).clear();
 		Building byggnad;
 		ifstream fin;
-		fin.open("databas.txt");
+		fin.open("(*this).txt");
 
 		if ( !fin.good() )
 		{
@@ -154,10 +154,10 @@ public:
 			fin >> byggnad;
 			byggnad.ReadFromFile(byggnad.GetInfo());
 
-			//Lägger till byggnaden i databasen
+			//Lägger till byggnaden i (*this)en
 			if( !fin.eof() )
 			{
-				databas.push_back(byggnad);
+				(*this).push_back(byggnad);
 			}
 		}
 		fin.close();
@@ -165,8 +165,8 @@ public:
 	void WriteFile()
 	{	
 		ofstream fout;
-		fout.open("databas.txt");
-		for(auto &a : databas)
+		fout.open("(*this).txt");
+		for(auto &a : (*this))
 		{	
 			fout << "(" << a.GetID()
 				 << "," << a.GetInfo()

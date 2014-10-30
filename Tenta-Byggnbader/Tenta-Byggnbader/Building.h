@@ -6,14 +6,14 @@
 using namespace std;
 class Building
 {
-private:
+protected:
 	vector<Room> roomVector;
 	string info;
 	int ID;
 public:
 
 	Building(void){ info=""; ID = -1;}
-
+	Building(int ID, string info) { this->ID = ID; this->info = info; }
 	~Building(void){}
 	int GetID() { return ID; }
 	void SetID(int ID) { this->ID=ID; }
@@ -147,5 +147,11 @@ public:
 
 		return in;
 	}
+
+	virtual void Print()
+	{
+		Write();
+	}
+
 };
 

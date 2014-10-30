@@ -65,9 +65,18 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgriCulturalBuilding.h" />
+    <ClInclude Include="ApartmentBuilding.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="BuildingDatabase.h" />
+    <ClInclude Include="CoffeHouse.h" />
+    <ClInclude Include="CommercialBuilding.h" />
+    <ClInclude Include="FoodEnterpriseBuilding.h" />
+    <ClInclude Include="Hotel.h" />
+    <ClInclude Include="ResidentialBuilding.h" />
+    <ClInclude Include="Restaurant.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="Villa.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

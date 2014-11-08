@@ -23,11 +23,13 @@ namespace SpelProjekt
         /* Spelet har fyra olika lägen, en som agerar som startskärm,
          * en som är själv spelet,
          * och en som visas på slutet om man tex får slut på liv.
-         * Det finns även en hjälpmeny som visar hur spelet fungerar.*/
+         * Det finns även en hjälpmeny som visar hur spelet fungerar
+         * och en meny där man kan välja svårighetsgrad.*/
         public enum GameState
         {
             StartScreen,
             HelpScreen,
+            DifficultyScreen,
             Running,
             EndScreen
         }
@@ -36,8 +38,11 @@ namespace SpelProjekt
         //Start/slut-meny
         Texture2D startScreen;
         Texture2D endScreen;
+        SoundEffect endScreenSound;
         //Hjälpmeny
         Texture2D helpScreen;
+        //Svårighetsmeny
+        Texture2D difficultyScreen;
         //Bakgrundsbild
         Texture2D backgroundTexture;
         //Player
@@ -47,13 +52,15 @@ namespace SpelProjekt
         //Bullet
         Texture2D bulletTexture;
         List<Bullet> bulletList = new List<Bullet>();
-
+        SoundEffect bulletSound;
         //Enemy
         List<Enemy> enemyList = new List<Enemy>();
         Texture2D enemyTextureBosse;
         Texture2D enemyTextureKalle;
         Texture2D enemyTextureNinjaBert;
         Texture2D enemyTextureDöskalle;
+        SoundEffect enemyDeathSound;
+        SoundEffect bosseHitSound, kalleHitSound, ninjaBertHitSound, döskalleHitSound;
         float bosseSpeed = 0.0f,
               kalleSpeed = 0.0f,
               ninjaBertSpeed = 0.0f,
@@ -73,6 +80,8 @@ namespace SpelProjekt
         Texture2D friendlyTextureFågelnRoger;
         Texture2D friendlyTextureFågelnRogerMad;
         Texture2D friendlyTextureJolt;
+        SoundEffect joltDeathSound, fågelnRogerDeathSound;
+        SoundEffect joltHitSound, fågelnRogerHitSound;
         float fågelnRogerSpeed = 0.0f,
               joltSpeed = 0.0f;
         int fågelHits = 0;
@@ -90,8 +99,10 @@ namespace SpelProjekt
         //Variabel för att spara förfluten tid, används för att skapa motståndare i intervall.
         float timeSinceEnemySpawn = 0.0f;
         float timeSinceFriendlySpawn = 0.0f;
-        //Keep track of the points for the player
-        float points = 0;
+        //Variabel för att spara och visa aktuell poäng.
+        float points = 0.0f;
+        //Variabel som visar högsta poäng.
+        float topScore = 0.0f;
         //Random
         static private Random random = new Random();
         
@@ -99,6 +110,7 @@ namespace SpelProjekt
         // Location to draw the text
         Vector2 textLeft;
         Vector2 textMiddle;
+        Vector2 textRight;
         #endregion
 
         public Game1()
@@ -126,7 +138,7 @@ namespace SpelProjekt
             base.Initialize();
             bosseSpeed = 330.0f;
             kalleSpeed = 110.0f;
-            ninjaBertSpeed = 220.0f;
+            ninjaBertSpeed = 280.0f;
             döskalleSpeed = 500.0f;
 
             fågelnRogerSpeed = 200.0f;
@@ -142,38 +154,54 @@ namespace SpelProjekt
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //Bakgrund
-            backgroundTexture = Content.Load<Texture2D>("background");
+            backgroundTexture = Content.Load<Texture2D>("Textures/background");
 
             //Start/slut-meny
-            startScreen = Content.Load<Texture2D>("startGame");
-            endScreen = Content.Load<Texture2D>("endGame");
+            startScreen = Content.Load<Texture2D>("Textures/startGame");
+            endScreen = Content.Load<Texture2D>("Textures/endGame");
+            endScreenSound = Content.Load<SoundEffect>("Sound Effects/Sad_trombone");
             //Hjälpmeny
-            helpScreen = Content.Load<Texture2D>("helpScreen");
-
+            helpScreen = Content.Load<Texture2D>("Textures/helpScreen");
+            //Svårighetsmeny
+            difficultyScreen = Content.Load<Texture2D>("Textures/difficultyScreen");
             //Spelare
-            playerTexture = Content.Load<Texture2D>("playerSprite");
+            playerTexture = Content.Load<Texture2D>("Textures/playerSprite");
             player = new Player(GraphicsDevice, new Vector2(100, 300), playerTexture);
 
             //Bullet 
-            bulletTexture = Content.Load<Texture2D>("bulletSprite");
+            bulletTexture = Content.Load<Texture2D>("Textures/bulletSprite");
+            bulletSound = Content.Load<SoundEffect>("Sound Effects/GUN_FIRE");
 
             //Enemy
-            enemyTextureKalle = Content.Load<Texture2D>("kalle");
-            enemyTextureBosse = Content.Load<Texture2D>("bosse");
-            enemyTextureNinjaBert = Content.Load<Texture2D>("ninjaBert");
-            enemyTextureDöskalle = Content.Load<Texture2D>("döskalle");
-          
+            enemyTextureKalle = Content.Load<Texture2D>("Textures/kalle");
+            enemyTextureBosse = Content.Load<Texture2D>("Textures/bosse");
+            enemyTextureNinjaBert = Content.Load<Texture2D>("Textures/ninjaBert");
+            enemyTextureDöskalle = Content.Load<Texture2D>("Textures/döskalle");
+
+            enemyDeathSound = Content.Load<SoundEffect>("Sound Effects/Upper Cut");
+
+            bosseHitSound = Content.Load<SoundEffect>("Sound Effects/ouch1");
+            kalleHitSound = Content.Load<SoundEffect>("Sound Effects/hit");
+            ninjaBertHitSound = Content.Load<SoundEffect>("Sound Effects/fist punch");
+            döskalleHitSound = Content.Load<SoundEffect>("Sound Effects/kaboom");
             //Friendly
-            friendlyTextureFågelnRoger = Content.Load<Texture2D>("fågelnRoger");
-            friendlyTextureFågelnRogerMad = Content.Load<Texture2D>("fågelnRogerMad");
-            friendlyTextureJolt = Content.Load<Texture2D>("jolt");
+            friendlyTextureFågelnRoger = Content.Load<Texture2D>("Textures/fågelnRoger");
+            friendlyTextureFågelnRogerMad = Content.Load<Texture2D>("Textures/fågelnRogerMad");
+            friendlyTextureJolt = Content.Load<Texture2D>("Textures/jolt");
+
+            joltHitSound = Content.Load<SoundEffect>("Sound Effects/slurp");
+            joltDeathSound = Content.Load<SoundEffect>("Sound Effects/MetalClang");
+            fågelnRogerHitSound = Content.Load<SoundEffect>("Sound Effects/ahhh");
+            fågelnRogerDeathSound = Content.Load<SoundEffect>("Sound Effects/fågelMad");
 
             //Text för att visa poäng och liv
             SegoeUIMono = Content.Load<SpriteFont>("SpriteFont1");
             //Positionsvektor där texten ska visas
             textMiddle = new Vector2(graphics.GraphicsDevice.Viewport.Width / 5f,
                 graphics.GraphicsDevice.Viewport.Height / 30);
-            textLeft = new Vector2(graphics.GraphicsDevice.Viewport.Width / 30,
+            textLeft = new Vector2(graphics.GraphicsDevice.Viewport.Width / 30f,
+                graphics.GraphicsDevice.Viewport.Height / 30);
+            textRight = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
                 graphics.GraphicsDevice.Viewport.Height / 30);
         }
 
@@ -209,13 +237,19 @@ namespace SpelProjekt
             else //Spelet körs
             {
                 //Kollar om spelet är slut
-                if (player.Lives < 0)
-                {
-                    gameState = GameState.EndScreen;             
+                if (player.Lives <= 0)
+                {                  
+                    gameState = GameState.EndScreen;
+                    endScreenSound.Play();
+                    //Nollställ och återställ allt
                     enemyList.Clear();
                     friendlyList.Clear();
                     bulletList.Clear();
+                    fågelHits = 0;
                     player.Lives = 5;
+                  
+                    if (points > topScore)
+                        topScore = points;
                     points = 0.0f;
                 }
 
@@ -237,12 +271,19 @@ namespace SpelProjekt
                     if (collide != -1)
                     {
                         if (enemyList[i].Speed == ninjaBertSpeed)
+                        {
                             points += 500;
+                        }
                         else if (enemyList[i].Speed == kalleSpeed)
+                        {
                             points += 100;
+                        }
                         else if (enemyList[i].Speed == bosseSpeed)
+                        {
                             points += 300;
+                        }
 
+                        enemyDeathSound.Play();
                         enemyList[i].Destroy();
                         enemyList.RemoveAt(i);
                         bulletList.RemoveAt(collide);
@@ -252,7 +293,17 @@ namespace SpelProjekt
                     else if (player.CollisionTest(enemyList[i].Position, enemyList[i].Radius))
                     {
                         if (enemyList[i].Speed == döskalleSpeed)
+                        {
+                            döskalleHitSound.Play();
                             player.Lives = 0;
+                        }
+                        else if (enemyList[i].Speed == ninjaBertSpeed)
+                            ninjaBertHitSound.Play();
+                        else if (enemyList[i].Speed == kalleSpeed)
+                            kalleHitSound.Play();
+                        else if (enemyList[i].Speed == bosseSpeed)
+                            bosseHitSound.Play();
+
                         enemyList.RemoveAt(i);
                         player.Lives--;
                     }
@@ -275,13 +326,17 @@ namespace SpelProjekt
                         {
                             points -= 1000.0f;
                             friendlyList[i].Mad = 1;
+                            fågelnRogerDeathSound.Play();
+
                             if (fågelHits == 0) fågelHits = 1;
                             else if (fågelHits == 1) fågelHits = 2;
                             else if (fågelHits == 2) fågelHits = 3;
                         }
                         else if (friendlyList[i].Speed == joltSpeed)
+                        {
+                            joltDeathSound.Play();
                             friendlyList.RemoveAt(i);
-
+                        }
                 //        friendlyList[i].Destroy();
                 //        friendlyList.RemoveAt(i);
                         bulletList.RemoveAt(collide);
@@ -293,12 +348,14 @@ namespace SpelProjekt
                     {
                         if (friendlyList[i].Speed == fågelnRogerSpeed)
                         {
-                            points += 200;      
-                     
+                            points += 200;
+                            fågelnRogerHitSound.Play();
                         }
                         else if (friendlyList[i].Speed == joltSpeed)
+                        {
                             player.Lives += 2;
-
+                            joltHitSound.Play();
+                        }
                         friendlyList.RemoveAt(i);
                     }
                     //Tar bort friendly som är långt borta och inte syns.
@@ -330,6 +387,8 @@ namespace SpelProjekt
                      700.0f);
 
                     bulletList.Add(shot);
+                    bulletSound.Play();
+                    
                     buttonDelay = 0.3f;
                     /* Visar att man har skjutit ett skott,
                      * detta gör att man inte kan hålla in skjutknappen hela tiden. */
@@ -409,9 +468,10 @@ namespace SpelProjekt
                 DrawStartScreen();
             else if (gameState == GameState.HelpScreen)
                 DrawHelpScreen();
+            else if (gameState == GameState.DifficultyScreen)
+                DrawDifficultyScreen();
             else if (gameState == GameState.Running)
             {
-
                 spriteBatch.Begin();
                 spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0,
                     graphics.PreferredBackBufferWidth,
@@ -464,25 +524,62 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
+        private void DrawDifficultyScreen()
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(difficultyScreen, new Rectangle(0, 0,
+                    graphics.PreferredBackBufferWidth,
+                    graphics.PreferredBackBufferHeight), Color.White);
+            spriteBatch.End();
+        }
         private void UpdateSplashScreen()
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            if (gameState == GameState.StartScreen &&
-                keyState.IsKeyDown(Keys.Enter))
+            if (gameState == GameState.StartScreen)
+            {
+                if (keyState.IsKeyDown(Keys.Enter))
                     gameState = GameState.Running;
 
-            else if (gameState == GameState.StartScreen &&
-                keyState.IsKeyDown(Keys.Space))
+                else if (keyState.IsKeyDown(Keys.Space))
                     gameState = GameState.HelpScreen;
+                else if (keyState.IsKeyDown(Keys.S))
+                    gameState = GameState.DifficultyScreen;
+            }
 
             else if (gameState == GameState.HelpScreen &&
                 keyState.IsKeyDown(Keys.Escape))
-                gameState = GameState.StartScreen;
+                    gameState = GameState.StartScreen;
 
+            else if (gameState == GameState.DifficultyScreen)
+            {
+               if (keyState.IsKeyDown(Keys.Escape))
+                    gameState = GameState.StartScreen;
+               else if (keyState.IsKeyDown(Keys.F1))
+               {//Svårighetsgrad 1
+                   bosseSpeed = 200.0f;
+                   kalleSpeed = 50.0f;
+                   ninjaBertSpeed = 100.0f;
+                   döskalleSpeed = 300.0f;
+               }
+               else if (keyState.IsKeyDown(Keys.F2))
+               {//Svårighetsgrad 2
+                   bosseSpeed = 330.0f;
+                   kalleSpeed = 110.0f;
+                   ninjaBertSpeed = 280.0f;
+                   döskalleSpeed = 500.0f;
+               }
+               else if (keyState.IsKeyDown(Keys.F3))
+               {//Svårighetsgrad 3
+                   bosseSpeed = 450.0f;
+                   kalleSpeed = 220.0f;
+                   ninjaBertSpeed = 380.0f;
+                   döskalleSpeed = 700.0f;
+               }
+            }
             else if (gameState == GameState.EndScreen &&
-                keyState.IsKeyDown(Keys.Enter))
-                gameState = GameState.StartScreen;
+                keyState.IsKeyDown(Keys.Escape))
+                    gameState = GameState.StartScreen;
 
         }
 
@@ -536,7 +633,7 @@ namespace SpelProjekt
             if (fågelHits == 3)
             {
                 Enemy enemy = new Enemy(enemyTextureDöskalle,
-                    new Vector2(900, mousePos.Y), döskalleSpeed);
+                    new Vector2(850, mousePos.Y), döskalleSpeed);
                 enemyList.Add(enemy);
                 fågelHits = 0;
             }
@@ -545,14 +642,14 @@ namespace SpelProjekt
                 if (enemyName == EnemyName.ninjaBert)
                 {
                     Enemy enemy = new Enemy(enemyTextureNinjaBert,
-                        new Vector2(900, mousePos.Y), ninjaBertSpeed);
+                        new Vector2(850, mousePos.Y), ninjaBertSpeed);
                     enemy.SetNinjaMoves((float)startY / 800.0f * 250.0f, 50.0f);
                     enemyList.Add(enemy);
                 }
                 if (enemyName == EnemyName.bosse && bosseCount <= 4)
                 {
                     Enemy enemy = new Enemy(enemyTextureBosse,
-                        new Vector2(900, mousePos.Y), bosseSpeed);
+                        new Vector2(850, mousePos.Y), bosseSpeed);
                     enemyList.Add(enemy);
                     bosseCount++;
                 }
@@ -561,14 +658,14 @@ namespace SpelProjekt
                 if (enemyName == EnemyName.bosse && bosseCount >= 6)
                 {//Var femte bosse är en MEGAbosse och är mycket snabbare
                     Enemy enemy = new Enemy(enemyTextureBosse,
-                        new Vector2(900, mousePos.Y), bosseSpeed + 300);
+                        new Vector2(850, mousePos.Y), bosseSpeed + 300);
                     enemyList.Add(enemy);
                     bosseCount = 0;
                 }
                 if (enemyName == EnemyName.kalle)
                 {
                     Enemy enemy = new Enemy(enemyTextureKalle,
-                        new Vector2(900, mousePos.Y), kalleSpeed);
+                        new Vector2(850, mousePos.Y), kalleSpeed);
                     enemyList.Add(enemy);
                 }
             }
@@ -580,25 +677,33 @@ namespace SpelProjekt
             if (friendlyName == FriendlyName.fågelnRoger)
             {
                 Friendly enemy = new Friendly(friendlyTextureFågelnRoger,
-                    new Vector2(900, startY), fågelnRogerSpeed, 20.0f, friendlyTextureFågelnRogerMad);
+                    new Vector2(850, startY), fågelnRogerSpeed, 20.0f, friendlyTextureFågelnRogerMad);
                 friendlyList.Add(enemy);
             }
             if (friendlyName == FriendlyName.jolt)
             {
                 Friendly enemy = new Friendly(friendlyTextureJolt,
-                    new Vector2(900, startY), joltSpeed, -20.0f);
+                    new Vector2(850, startY), joltSpeed, -20.0f);
                 friendlyList.Add(enemy);
             }
         }
         public void DrawText(SpriteBatch TextBatch)
         {
+            //Liv
             string output = "Lives: " + player.Lives.ToString();
             TextBatch.DrawString(SegoeUIMono, output, textLeft, Color.Tomato);
+            //Poäng
             string pointString = points.ToString();
             for (int i = pointString.Length; i < 8; i++)
                 pointString = "0" + pointString;
             pointString = "Points: " + pointString;
             TextBatch.DrawString(SegoeUIMono, pointString, textMiddle, Color.Tomato);
+            //Topp-poäng
+            string topScoreString = topScore.ToString();
+            for (int i = topScoreString.Length; i < 8; i++)
+                topScoreString = "0" + topScoreString;
+            topScoreString = "Top points: " + topScoreString;
+            TextBatch.DrawString(SegoeUIMono, topScoreString, textRight, Color.Tomato);
         }
     }
 }

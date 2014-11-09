@@ -35,6 +35,8 @@ namespace SpelProjekt
         }
         //Spelet börjar med startscreen.
         GameState gameState = GameState.StartScreen;
+        bool usingMouse;
+        bool debugger;
         //Start/slut-meny
         Texture2D startScreen;
         Texture2D endScreen;
@@ -185,7 +187,7 @@ namespace SpelProjekt
             ninjaBertHitSound = Content.Load<SoundEffect>("Sound Effects/fist punch");
             döskalleHitSound = Content.Load<SoundEffect>("Sound Effects/kaboom");
             //Friendly
-            friendlyTextureFågelnRoger = Content.Load<Texture2D>("Textures/fågelnRoger");
+            friendlyTextureFågelnRoger = Content.Load<Texture2D>("Textures/roger");
             friendlyTextureFågelnRogerMad = Content.Load<Texture2D>("Textures/fågelnRogerMad");
             friendlyTextureJolt = Content.Load<Texture2D>("Textures/jolt");
 
@@ -222,8 +224,11 @@ namespace SpelProjekt
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Q))
                 this.Exit();
+            if(Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.X))
+                debugger = !debugger;
 
             //Minskar värdet på delayvariabeln.
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -246,6 +251,7 @@ namespace SpelProjekt
                     friendlyList.Clear();
                     bulletList.Clear();
                     fågelHits = 0;
+                    usingMouse = false;
                     player.Lives = 5;
                   
                     if (points > topScore)
@@ -253,7 +259,7 @@ namespace SpelProjekt
                     points = 0.0f;
                 }
 
-                player.Update(gameTime);
+                player.Update(gameTime, usingMouse);
                 UpdateInput();
                 CreateEnemyTime();
                 CreateFriendlyTime();
@@ -284,7 +290,6 @@ namespace SpelProjekt
                         }
 
                         enemyDeathSound.Play();
-                        enemyList[i].Destroy();
                         enemyList.RemoveAt(i);
                         bulletList.RemoveAt(collide);
 
@@ -372,6 +377,10 @@ namespace SpelProjekt
                 }
             }
         }       
+        /// <summary>
+        /// Läser input från tangentbord och mus
+        /// samt utför händelser baserat på input.
+        /// </summary>
         private void UpdateInput()
         {     
             KeyboardState keyState = Keyboard.GetState();
@@ -424,37 +433,41 @@ namespace SpelProjekt
                 keyState.IsKeyDown(Keys.D))
 
                 player.MoveRight();
-            //Skapa motståndare
-            if (keyState.IsKeyDown(Keys.E))
-                if (buttonDelay <= 0.0f)
-                {
-                    CreateEnemy(EnemyName.kalle);
-                    buttonDelay = 0.25f;
-                }
-            if (keyState.IsKeyDown(Keys.R))
-                if (buttonDelay <= 0.0f)
-                {
-                    CreateEnemy(EnemyName.bosse);
-                    buttonDelay = 0.25f;
-                }
-            if (keyState.IsKeyDown(Keys.T))
-                if (buttonDelay <= 0.0f)
-                {
-                    CreateEnemy(EnemyName.ninjaBert);
-                    buttonDelay = 0.25f;
-                }
-            if (keyState.IsKeyDown(Keys.F))
-                if (buttonDelay <= 0.0f)
-                {
-                    CreateFriendly(FriendlyName.fågelnRoger);
-                    buttonDelay = 0.25f;
-                }
-            if (keyState.IsKeyDown(Keys.G))
-                if (buttonDelay <= 0.0f)
-                {
-                    CreateFriendly(FriendlyName.jolt);
-                    buttonDelay = 0.25f;
-                }
+
+            //Skapa motståndare på begäran
+            if (debugger)
+            {
+                if (keyState.IsKeyDown(Keys.E))
+                    if (buttonDelay <= 0.0f)
+                    {
+                        CreateEnemy(EnemyName.kalle);
+                        buttonDelay = 0.25f;
+                    }
+                if (keyState.IsKeyDown(Keys.R))
+                    if (buttonDelay <= 0.0f)
+                    {
+                        CreateEnemy(EnemyName.bosse);
+                        buttonDelay = 0.25f;
+                    }
+                if (keyState.IsKeyDown(Keys.T))
+                    if (buttonDelay <= 0.0f)
+                    {
+                        CreateEnemy(EnemyName.ninjaBert);
+                        buttonDelay = 0.25f;
+                    }
+                if (keyState.IsKeyDown(Keys.F))
+                    if (buttonDelay <= 0.0f)
+                    {
+                        CreateFriendly(FriendlyName.fågelnRoger);
+                        buttonDelay = 0.25f;
+                    }
+                if (keyState.IsKeyDown(Keys.G))
+                    if (buttonDelay <= 0.0f)
+                    {
+                        CreateFriendly(FriendlyName.jolt);
+                        buttonDelay = 0.25f;
+                    }
+            }
         }
         /// <summary>
         /// This is called when the game should draw itself.
@@ -497,7 +510,9 @@ namespace SpelProjekt
 
             base.Draw(gameTime);
         }
-        //Visa startmenyn
+        /// <summary>
+        /// Visa startmenyn.
+        /// </summary>
         private void DrawStartScreen()
         {
             spriteBatch.Begin();
@@ -506,7 +521,9 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
-        //Visa slutmenyn
+        /// <summary>
+        /// Visa slutmenyn/"game over".
+        /// </summary>
         private void DrawEndScreen()
         {
             spriteBatch.Begin();
@@ -515,7 +532,9 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
-        //Visa hjälpmenyn
+        /// <summary>
+        /// Visa hjälpmenyn.
+        /// </summary>
         private void DrawHelpScreen()
         {
             spriteBatch.Begin();
@@ -524,6 +543,9 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
+        /// <summary>
+        /// Visa menyn där man väljer svårighetsgrad.
+        /// </summary>
         private void DrawDifficultyScreen()
         {
             spriteBatch.Begin();
@@ -532,14 +554,24 @@ namespace SpelProjekt
                     graphics.PreferredBackBufferHeight), Color.White);
             spriteBatch.End();
         }
+        /// <summary>
+        /// Läser input från tangentbord/mus
+        /// och uppdaterar vilken meny som ska visas.
+        /// </summary>
         private void UpdateSplashScreen()
         {
             KeyboardState keyState = Keyboard.GetState();
+            MouseState currentMouseState = Mouse.GetState();
 
             if (gameState == GameState.StartScreen)
             {
                 if (keyState.IsKeyDown(Keys.Enter))
                     gameState = GameState.Running;
+                else if (currentMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    usingMouse = true;
+                    gameState = GameState.Running;
+                }
 
                 else if (keyState.IsKeyDown(Keys.Space))
                     gameState = GameState.HelpScreen;
@@ -583,7 +615,9 @@ namespace SpelProjekt
 
         }
 
-        //Skapar en ny random motståndare med x sekunders mellanrum.
+        /// <summary>
+        /// Skapar en ny random motståndare med x sekunders mellanrum.
+        /// </summary>
         public void CreateEnemyTime()
         {          
             if (timeSinceEnemySpawn > 0.8f && timeSinceEnemySpawn < 0.81f)
@@ -607,6 +641,9 @@ namespace SpelProjekt
             if (timeSinceEnemySpawn > 0.82f)
                 timeSinceEnemySpawn = 0;
         }
+        /// <summary>
+        /// Skapar en ny random friendly med x sekunders mellanrum.
+        /// </summary>
         public void CreateFriendlyTime()
         {
             if (timeSinceFriendlySpawn > 3.2f && timeSinceFriendlySpawn < 3.21f)
@@ -624,12 +661,18 @@ namespace SpelProjekt
             if (timeSinceFriendlySpawn > 3.22f)
                 timeSinceFriendlySpawn = 0;
         }
+        /// <summary>
+        /// Skapar en ny motståndare baserat på hur funktionen anropas.
+        /// </summary>
+        /// <param name="enemyName">Tar motståndarens namn som parameter.</param>
         public void CreateEnemy(EnemyName enemyName)
         {
             MouseState mousePos = Mouse.GetState();
             //Slumpar startposition
             int startY = random.Next(480);
 
+            /* Om man har träffat fågeln roger tre gånger i rad
+             * så spawnar en farlig döskalle. */
             if (fågelHits == 3)
             {
                 Enemy enemy = new Enemy(enemyTextureDöskalle,
@@ -638,18 +681,18 @@ namespace SpelProjekt
                 fågelHits = 0;
             }
             else
-            {
+            {                
                 if (enemyName == EnemyName.ninjaBert)
                 {
                     Enemy enemy = new Enemy(enemyTextureNinjaBert,
-                        new Vector2(850, mousePos.Y), ninjaBertSpeed);
+                        new Vector2(850, player.Position.Y), ninjaBertSpeed);
                     enemy.SetNinjaMoves((float)startY / 800.0f * 250.0f, 50.0f);
                     enemyList.Add(enemy);
                 }
                 if (enemyName == EnemyName.bosse && bosseCount <= 4)
                 {
                     Enemy enemy = new Enemy(enemyTextureBosse,
-                        new Vector2(850, mousePos.Y), bosseSpeed);
+                        new Vector2(850, player.Position.Y), bosseSpeed);
                     enemyList.Add(enemy);
                     bosseCount++;
                 }
@@ -658,18 +701,22 @@ namespace SpelProjekt
                 if (enemyName == EnemyName.bosse && bosseCount >= 6)
                 {//Var femte bosse är en MEGAbosse och är mycket snabbare
                     Enemy enemy = new Enemy(enemyTextureBosse,
-                        new Vector2(850, mousePos.Y), bosseSpeed + 300);
+                        new Vector2(850, player.Position.Y), bosseSpeed + 300);
                     enemyList.Add(enemy);
                     bosseCount = 0;
                 }
                 if (enemyName == EnemyName.kalle)
                 {
                     Enemy enemy = new Enemy(enemyTextureKalle,
-                        new Vector2(850, mousePos.Y), kalleSpeed);
+                        new Vector2(850, player.Position.Y), kalleSpeed);
                     enemyList.Add(enemy);
                 }
             }
         }
+        /// <summary>
+        /// Skapar en ny friendly baserat på hur funktionen anropas.
+        /// </summary>
+        /// <param name="friendlyName">Tar friendlyns namn som parameter.</param>
         public void CreateFriendly(FriendlyName friendlyName)
         {
             //Slumpar startposition
@@ -687,17 +734,23 @@ namespace SpelProjekt
                 friendlyList.Add(enemy);
             }
         }
+        /// <summary>
+        /// Visar text som innehåller information om liv, poäng samt topp-poäng.
+        /// </summary>
+        /// <param name="TextBatch">En grupp sprites(text) som ritas med samma inställningar</param>
         public void DrawText(SpriteBatch TextBatch)
         {
             //Liv
             string output = "Lives: " + player.Lives.ToString();
             TextBatch.DrawString(SegoeUIMono, output, textLeft, Color.Tomato);
+
             //Poäng
             string pointString = points.ToString();
             for (int i = pointString.Length; i < 8; i++)
                 pointString = "0" + pointString;
             pointString = "Points: " + pointString;
             TextBatch.DrawString(SegoeUIMono, pointString, textMiddle, Color.Tomato);
+
             //Topp-poäng
             string topScoreString = topScore.ToString();
             for (int i = topScoreString.Length; i < 8; i++)

@@ -22,8 +22,7 @@ namespace SpelProjekt
 
         float radius = 50.0f;
 
-
-        //Total number of lives
+        //Antal liv
         int lives = 5;
         public int Lives
         {
@@ -31,32 +30,37 @@ namespace SpelProjekt
             get { return lives; }
         }
 
-        // This method is called when the Player is created
+        /// <summary>
+        /// Konstruktor för player.
+        /// </summary>
         public Player(GraphicsDevice device, Vector2 position, Texture2D sprite)
         {
-            // The position that is passed in is now set to the position above
             this.position = position;
-
-            // Set the Texture2D
             playerSprite = sprite;
             
-            // Setup origin
+            //Ange startposition.
             spriteOrigin.X = (float)playerSprite.Width / 2.0f;
             spriteOrigin.Y = (float)playerSprite.Height / 2.0f;
 
-            // Set window dimensions
             windowHeight = device.Viewport.Height;
             windowWidth = device.Viewport.Width;
         }
-        // Draw the player
+        /// <summary>
+        /// Visa spelaren.
+        /// </summary>
+        /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(playerSprite, position, null, Color.White,
                        0.0f, spriteOrigin, 1.0f, SpriteEffects.None, 0.0f);
             //         ^rotation           ^scale
         }
-        // Update - for animation
-        public void Update(GameTime gameTime)
+        /// <summary>
+        /// Uppdaterar spelarens positon.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="usingMouse">Skickar med om man styr spelaren med musen eller inte.</param>
+        public void Update(GameTime gameTime, bool usingMouse)
         {
             if (position.Y < 0) 
                 position.Y = 0.0f;
@@ -67,16 +71,29 @@ namespace SpelProjekt
             else if (position.X > windowWidth)
                 position.X = windowWidth;
 
-            position.X = Mouse.GetState().X;
-            position.Y = Mouse.GetState().Y;
+            if (usingMouse)
+            {
+                position.X = Mouse.GetState().X;
+                position.Y = Mouse.GetState().Y;
+            }
         }
+        /// <summary>
+        /// Kollar om spelaren har krockat med någon/något.
+        /// </summary>
+        /// <param name="point">Positionen på det objekt man kontrollerar kollision med.</param>
+        /// <param name="radius">Objektets radius (storlek).</param>
+        /// <returns>Returnerar sant om spelaren har krockat med ett objekt.
+        /// Annars returneras false.</returns>
         public bool CollisionTest(Vector2 point, float radius)
         {
             if ((point - position).Length() < this.radius + radius)            
                 return true;
             return false;
         }
-
+        /// <summary>
+        /// Används tillsammans med tangentbordet för att
+        /// flytta spelaren i olika riktningar.
+        /// </summary>
         public void MoveUp()
         {//Flyttas 4 pixlar åt gången.
             position.Y -= 4.0f;

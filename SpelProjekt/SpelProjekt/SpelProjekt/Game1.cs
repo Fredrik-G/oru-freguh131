@@ -242,7 +242,7 @@ namespace SpelProjekt
             else //Spelet körs
             {
                 //Kollar om spelet är slut
-                if (player.Lives <= 0)
+                if (player.Lives <= 0 && !debugger)
                 {                  
                     gameState = GameState.EndScreen;
                     endScreenSound.Play();
@@ -252,6 +252,7 @@ namespace SpelProjekt
                     bulletList.Clear();
                     fågelHits = 0;
                     usingMouse = false;
+                    debugger = false;
                     player.Lives = 5;
                   
                     if (points > topScore)

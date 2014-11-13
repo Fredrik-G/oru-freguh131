@@ -22,32 +22,42 @@ int main()
 	Course::Watch w;
 	Course::microseconds t0, t1, t2;
 	long nLoop = 1000000L;
+	int x, y, n_max = 0;
 
-	w.restart();
-	for (int i = 0; i < nLoop; i++) {
-		;
-	}
-	t0 = w.elapsedUs();
-
-	cout << "Rekursiv:\n";
-	w.restart();
-	for (int n = 1; n < 10; n++)
+	cout.precision(1);
+	cout.setf(ios::fixed);
+	system("color 1f");
+	while (n_max != -1)
 	{
-		cout << n << "!=" << fakultet_rekursiv(n) << endl;
+		cout << "Ange n. Avsluta med -1: ";
+		cin >> n_max;
+
+		if (n_max != -1)
+			cout << "\n\tRekursiv \tIterativ\n";
+
+		for (int n = 1; n <= n_max; n++)
+		{
+			w.restart();
+			for (int i = 0; i < nLoop; i++)
+				;
+			t0 = w.elapsedUs();
+
+			w.restart();
+
+			for (int i = 0; i < nLoop; i++)
+				x = fakultet_rekursiv(n);
+			t1 = w.elapsedUs();
+
+			w.restart();
+			for (int i = 0; i < nLoop; i++)
+				y = fakultet_iterativ(n);
+			t2 = w.elapsedUs();
+
+			cout << n << "!: " << 1e3*double(t1.count() - t0.count()) / nLoop << "\t" << x;
+			cout << "\t" << 1e3*(t2.count() - t0.count()) / (double)nLoop << "\t" << y << endl;
+		}
+		cout << "\n\n";
 	}
-		t1 = w.elapsedUs();
-
-	w.restart();
-	cout << "\nIterativ:\n";
-	for (int n = 1; n < 10; n++)
-	{
-		cout << n << "!=" << fakultet_iterativ(n) << endl;
-	}
-	t2 = w.elapsedUs();
-
-
-	cout << 1e3*double(t1.count() - t0.count()) / nLoop;
-	cout << 1e3*(t2.count() - t0.count()) / (double)nLoop << endl;
 
 	cout << endl;
 	system("pause");

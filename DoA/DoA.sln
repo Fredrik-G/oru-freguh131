@@ -9,7 +9,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fakultet", "Fakultet\Fakult
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fibonacci", "Fibonacci\Fibonacci.vcxproj", "{18EB970A-C670-4634-95CD-0DFFD5E922CF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RekursivTriangel", "RekursivTriangel\RekursivTriangel.vcxproj", "{6C73910B-6C5A-4AEC-A4CE-08FD193E6243}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
@@ -27,6 +33,10 @@ Global
 		{18EB970A-C670-4634-95CD-0DFFD5E922CF}.Debug|Win32.Build.0 = Debug|Win32
 		{18EB970A-C670-4634-95CD-0DFFD5E922CF}.Release|Win32.ActiveCfg = Release|Win32
 		{18EB970A-C670-4634-95CD-0DFFD5E922CF}.Release|Win32.Build.0 = Release|Win32
+		{6C73910B-6C5A-4AEC-A4CE-08FD193E6243}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C73910B-6C5A-4AEC-A4CE-08FD193E6243}.Debug|Win32.Build.0 = Debug|Win32
+		{6C73910B-6C5A-4AEC-A4CE-08FD193E6243}.Release|Win32.ActiveCfg = Release|Win32
+		{6C73910B-6C5A-4AEC-A4CE-08FD193E6243}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

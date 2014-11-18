@@ -17,6 +17,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rekursiv_Palindrom", "Rekur
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rekursiv_charlängd", "Rekursiv_charlängd\Rekursiv_charlängd.vcxproj", "{6AE61DFE-0FDC-4BD2-8CEE-542CFD8D277E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Forward_List", "Forward_List\Forward_List.vcxproj", "{E957B480-4F07-463F-9E83-9DB200804E7E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{BDCD4356-A149-4C08-B8F0-5A4AC8F24195}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -55,6 +59,14 @@ Global
 		{6AE61DFE-0FDC-4BD2-8CEE-542CFD8D277E}.Debug|Win32.Build.0 = Debug|Win32
 		{6AE61DFE-0FDC-4BD2-8CEE-542CFD8D277E}.Release|Win32.ActiveCfg = Release|Win32
 		{6AE61DFE-0FDC-4BD2-8CEE-542CFD8D277E}.Release|Win32.Build.0 = Release|Win32
+		{E957B480-4F07-463F-9E83-9DB200804E7E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E957B480-4F07-463F-9E83-9DB200804E7E}.Debug|Win32.Build.0 = Debug|Win32
+		{E957B480-4F07-463F-9E83-9DB200804E7E}.Release|Win32.ActiveCfg = Release|Win32
+		{E957B480-4F07-463F-9E83-9DB200804E7E}.Release|Win32.Build.0 = Release|Win32
+		{BDCD4356-A149-4C08-B8F0-5A4AC8F24195}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BDCD4356-A149-4C08-B8F0-5A4AC8F24195}.Debug|Win32.Build.0 = Debug|Win32
+		{BDCD4356-A149-4C08-B8F0-5A4AC8F24195}.Release|Win32.ActiveCfg = Release|Win32
+		{BDCD4356-A149-4C08-B8F0-5A4AC8F24195}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

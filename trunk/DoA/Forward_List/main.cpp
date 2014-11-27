@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+	//***********************************************
 	//COPY CONSTRUCTOR
 	forward_list<int> fl1,fl2,fl3;
 

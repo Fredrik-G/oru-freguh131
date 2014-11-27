@@ -51,6 +51,8 @@ public:
 	private:
 		pointer ptr_;
 	};
+	iterator begin() { return iterator(head); }
+	iterator end() { return iterator(nullptr); }
 
 	forward_list()
 	{
@@ -58,34 +60,42 @@ public:
 	}
 	forward_list(const forward_list<T> &old)
 	{//Copy constructor
+		this->head = nullptr;
 		Node<T> *tail = nullptr;
 		Node<T> *v = old.head;
-		while (v != nullptr)
+		do
 		{
-			Node<T> *n = new Node<T>(v->value);
+			Node<T> *ny = new Node<T>(v->value);
 			if (this->head == nullptr)
-				this->head = tail = n;
+				this->head = tail = ny;
 			else
-				tail = tail->next = n;
+				tail = tail->next = ny;
 
 			v = v->next;
-		}
+		} while (v != nullptr);
 	}
+	//forward_list(forward_list<T> &asd)
+	//{
+	//	head = nullptr;
+	//	for (auto it = asd.begin(); it != asd.end(); it++)
+	//		this->push_front(it->value);
+	//}
 	forward_list<T>& operator=(const forward_list<T> &rop)
 	{//Copy Assignment Operator
 	 //Som copy constructor fast tömmer listan först.
 		if (!empty())
 			clear();
 
+		this->head = nullptr;
 		Node<T> *tail = nullptr;
 		Node<T> *v = rop.head;
 		while (v != nullptr)
 		{
-			Node<T> *n = new Node<T>(v->value);
+			Node<T> *ny = new Node<T>(v->value);
 			if (this->head == nullptr)
-				this->head = tail = n;
+				this->head = tail = ny;
 			else
-				tail = tail->next = n;
+				tail = tail->next = ny;
 
 			v = v->next;
 		}
@@ -137,7 +147,7 @@ public:
 		return oss.str();
 	}
 	void insert_after(iterator &it, T value)
-	{
+	{//Lägg till ett element efter.
 		Node<T> *n = new Node<T>(value);
 		n->next = it->next;
 		it->next = n;
@@ -155,7 +165,4 @@ public:
 		fl = *this;
 		*this = temp;
 	}
-	
-	iterator begin() { return iterator(head); }
-	iterator end() { return iterator(nullptr); }
 };

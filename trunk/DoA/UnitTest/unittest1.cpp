@@ -121,7 +121,8 @@ namespace UnitTest
 			Assert::AreEqual(14, fl1.front());
 
 
-			forward_list<int> fl4(fl1);
+			forward_list<int> fl2(fl1);
+			Assert::AreEqual(14, fl2.front());
 		}
 		TEST_METHOD(TestListCopyAssignment)
 		{

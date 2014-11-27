@@ -2,7 +2,7 @@ class Node(object):
     name = ""
     x = 0
     y = 0
-    successors = []
+    cost = 0
     
 
     def __init__ (self,namn,X,Y):

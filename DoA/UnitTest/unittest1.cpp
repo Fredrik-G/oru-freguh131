@@ -9,7 +9,7 @@ namespace UnitTest
 	TEST_CLASS(UnitTestForwardList)
 	{
 	public:
-		TEST_METHOD(TestMethodEmpty)
+		TEST_METHOD(TestListEmpty)
 		{
 			forward_list<int> fl;
 			Assert::AreEqual(true, fl.empty());
@@ -19,7 +19,7 @@ namespace UnitTest
 
 		}
 
-		TEST_METHOD(TestMethodPushFront)
+		TEST_METHOD(TestListPushFront)
 		{
 			forward_list<int> fl;
 			fl.push_front(10);			
@@ -30,7 +30,7 @@ namespace UnitTest
 			Assert::AreEqual(30, fl.front());
 		}
 
-		TEST_METHOD(TestMethodPopFront)
+		TEST_METHOD(TestListPopFront)
 		{
 			forward_list<int> fl;
 			fl.push_front(10);
@@ -40,7 +40,7 @@ namespace UnitTest
 			Assert::AreEqual(true, fl.empty());
 			
 		}
-		TEST_METHOD(TestMethodClear)
+		TEST_METHOD(TestListClear)
 		{
 			forward_list<int> fl;
 			for (int i = 1; i < 15; i++)
@@ -50,7 +50,7 @@ namespace UnitTest
 			fl.clear();
 			Assert::AreEqual(true, fl.empty());
 		}
-		TEST_METHOD(TestMethodBeginEnd)
+		TEST_METHOD(TestListeginEnd)
 		{
 			forward_list<int> fl;
 			for (int i = 1; i < 15; i++)
@@ -61,7 +61,7 @@ namespace UnitTest
 				Assert::AreEqual(n--, it->value);
 			//Testar 14,13,12 osv
 		}
-		TEST_METHOD(TestMethodSwap)
+		TEST_METHOD(TestListSwap)
 		{
 			forward_list<int> fl1, fl2;
 			fl1.push_front(10);

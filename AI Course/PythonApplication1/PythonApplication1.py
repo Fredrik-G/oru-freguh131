@@ -115,7 +115,7 @@ def best_first_search(start, goal):
 
     while(done != 1):
         if(bestWay[-1] == start.name):
-
+            
             print("Found best way with ", expanded, " expanded nodes")
             
             path = bestWay
@@ -145,77 +145,154 @@ def best_first_search(start, goal):
         min_distance = 999999
         expanded += 1
 
-#used by task C
-def calcDist(startX, startY, node):
-    for city in cityList:
-        if(node == city.name):
-            x = int(city.x.strip())
-            y = int(city.y.strip())
-    #y är "tvärtom"
-    asd = math.sqrt( (x-startX)*(x-startX) + (y-startY)*(y-startY) )
-   # print(asd)
-    return asd
 
-#used by task D
+costSoFar = {}
+bestWay = []
 def Astar(start, goal):
     #räkna ut fågelväg för start->goal
     #sen alla starts successor och deras fågelväg
     
-    bestWay = []
+    visited = []
     frontier = []
-    min_distance = 999999
-    cost_so_far = 0
+    bestCity = ""
     done = 0
+    foundBetter = 0
 
+    #convert X&Y-pos to integer
     startX = int(start.x.strip())
     startY = int(start.y.strip())
 
-    estimate = calcDist(startX, startY, goal.name)
+    #calculate distance from start pos to goal
+    #####estimate = calcDist(startX, startY, goal.name)
 
     bestWay.append(start.name)
+    visited.append(start.name)
+    costSoFar[start.name] = 0.0
 
     while(done != 1):
-
+        foundBetter = 0
+        #check if we've found the goal
         if(bestWay[-1] == goal.name):
-
+            bestWay.append(goal.name)
             print("Found best way with  expanded nodes")
             
             print(bestWay)
                 
             done = 1
 
-        for successor in connections[bestWay[-1]]:                      
-            frontier.append(successor)
-    
-        while(len(frontier) > 0):    
-            temp = estDist(frontier[-1], goal)
+       #if we're not at the goal:
+        #adds all successors to the frontier
+        for successor in connections[bestWay[-1]]:
+            if successor not in frontier:
+
+                if(successor == goal.name):
+                    bestWay.append(goal.name)
+                    print("Found best way with  expanded nodes")   
+                    print(bestWay)
+                    print("\n\n")
+                    print(visited)                
+                    done = 1
+
+                    #pause
+                    input()
+
+                frontier.append(successor)
+
+        #creates a copy of frontier    
+        frontier2 = []
+        for a in frontier:
+            frontier2.append(a)
+
+        #while frontier is not empty
+        while(len(frontier) > 0):
+            costSoFar[frontier[-1]] = 0.0
             
-            if (temp < min_distance):
-                min_distance = temp
-                best = frontier[-1]
+            estCostToGoal = estDist(frontier[-1], goal.name, 0)
+            asd = estDist(frontier[-1], bestWay[-1], 1) 
 
-            frontier.pop()
-
-        bestWay.append(best)
-
-        cost_so_far = estDist(bestWay[-1], start)
-
-        min_distance = 999999
-       # print(bestWay)   
+            costSoFar[frontier[-1]] = asd
           
+            parentName = frontier.pop()
 
-def estDist(current, goal):
+        temp_min = asd
+        for node in costSoFar:
+            if(costSoFar[node] < asd and costSoFar[node] < temp_min):
+                if node not in visited:
+                    temp_min = costSoFar[node]
+                  #  min = temp_min
+
+        for node2 in costSoFar:
+            if(temp_min == costSoFar[node2] and temp_min != asd):
+
+                if(node2 == 'Grossmehring'):
+                    debug=1
+
+               # bestWay.pop()              
+                bestWay.append(node2)
+                visited.append(node2)
+                foundBetter = 1
+        
+        if(foundBetter == 0):
+            bestCity = calcBest(frontier2)
+
+            if(bestCity == 'Mindelstetten'):
+                debug=1
+
+            bestWay.append(bestCity)
+            visited.append(bestCity)
+
+def calcBest(nodes):
+    tempTotal = 99999999.0
+    bestCity = ""
+
+    for node in nodes:
+        for city in cityList:
+            if(node == 'Vohburg' and city.name == 'Vohburg'):
+                debug = 1
+            if(node == city.name):
+                city.total = city.cost_so_far + city.cost_to_goal
+
+                if(city.total < tempTotal and city.cost_so_far != 0.0):
+                    tempTotal = city.total
+                    bestCity = city.name
+                
+    return bestCity
+
+def estDist(fran, to, franStart):
     for asd in cityList:
-        if (goal.name == asd.name):
-            goalX = int(asd.x.strip())
-            goalY = int(asd.y.strip())
+        if (to == asd.name):
+            toX = int(asd.x.strip())
+            toY = int(asd.y.strip())
 
     for city in cityList:
-        if(current == city.name):
-            currentX = int(city.x.strip())
-            currentY = int(city.y.strip())
-            city.cost = math.sqrt( (goalX-currentX)*(goalX-currentX) + (goalY-currentY)*(goalY-currentY) )
-            return city.cost
+        if(fran == city.name):
+            franX = int(city.x.strip())
+            franY = int(city.y.strip())
+
+            if(franStart == 0):
+                city.cost_to_goal = math.sqrt( (franX-toX)*(franX-toX) + (franY-toY)*(franY-toY) )
+                return city.cost_to_goal
+
+            elif(franStart == 1):
+
+                if(city.name == 'Gaimersheim'):
+                    debug=1
+
+                city.cost_so_far += math.sqrt( (toX-franX)*(toX-franX) + (toY-franY)*(toY-franY) )
+                city.cost_so_far += costSoFar[bestWay[-1]]
+                return city.cost_so_far
+            
+
+def calcDist(startX, startY, node):
+    for city in cityList:
+        if(node == city.name):
+            x = int(city.x.strip())
+            y = int(city.y.strip())
+            break
+    #y är "tvärtom"
+   # print(asd)
+    temp = math.sqrt( (x-startX)*(x-startX) + (y-startY)*(y-startY) )
+    return temp
 
 def task1b():
     print("Start location? ")
@@ -229,8 +306,8 @@ def task1c():
     #tempStart = input()
     #print("\nGoal location? ")
     #tempGoal = input()
-    tempStart = 'Neuburg'
-    tempGoal = 'Denkendorf'
+    tempStart = 'Bergheim'
+    tempGoal = 'Pforring'
     for startNode in cityList:
         if(tempStart == startNode.name):
             start = startNode
@@ -244,8 +321,8 @@ def task1d():
     #tempStart = input()
     #print("\nGoal location? ")
     #tempGoal = input()
-    tempStart = 'Kosching'
-    tempGoal = 'Denkendorf'
+    tempStart = 'Bergheim'
+    tempGoal = 'Pforring'
     for startNode in cityList:
         if(tempStart == startNode.name):
             start = startNode
@@ -260,7 +337,6 @@ readRoads()
 
 #task1c()
 task1d()
-
-
+input()
 
 #total = current längd + fågel

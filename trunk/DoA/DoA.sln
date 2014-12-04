@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linked_List", "Linked_List\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestCSharp", "UnitTestCSharp\UnitTestCSharp.csproj", "{F79CDF12-D9BE-4E2D-BB2B-82B3CBC402D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dejt", "Dejt\Dejt.vcxproj", "{4EEF2B4F-7BAD-414E-8895-76E327908360}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -149,6 +151,16 @@ Global
 		{F79CDF12-D9BE-4E2D-BB2B-82B3CBC402D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F79CDF12-D9BE-4E2D-BB2B-82B3CBC402D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F79CDF12-D9BE-4E2D-BB2B-82B3CBC402D2}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Debug|Win32.Build.0 = Debug|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Win32.ActiveCfg = Release|Win32
+		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

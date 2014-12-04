@@ -82,7 +82,7 @@ namespace Linked_List
                         return true;
                     }
                     else
-                    {
+                    {//Denna tar bort om objektet är någonstans i mitten(inte vid kant).
                         n.prev.next = n.next;
                         n.next.prev = n.prev;
                         return true;

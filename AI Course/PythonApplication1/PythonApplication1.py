@@ -70,34 +70,101 @@ def deepening_search(start, goal, limit) :
     expanded = 1
     frontier = []
     visited = []
-    total = []
     visited.append(start)
-    for successor in connections[start]:
-        if(successor == goal):
-            visited.append(goal)
-            print("Found goal ", goal,",expanded ", expanded, "nodes")
-            print(visited)
-            return visited
-        frontier.append(successor)
-        total.append(successor)
+    depth = {}
+    depth[start] = 0
+    parent = {}
+    parent[start] = 0
+
+    frontier.append(start)
+
     while len(frontier) > 0 :          
-        path = frontier.pop()
+        node = frontier.pop()
+        if node == goal :
+            visited.append(goal)
+            return reconstructPath(start, goal, parent)
 
-        if len([path]) < limit :
+        if (depth[node] < limit) :
                 expanded += 1
-                visited.append([path])
+                visited.append(node)
 
-                for child in connections[path]:
-                    if child == goal :
-                        visited.append(goal)
-                        print("ads asd ", goal,",expanded ", expanded, "nodes")
-                        print(visited)
-                        return path
-                    if child not in total:
-                        frontier.append(child)
-                        total.append(child)
+                for child in connections[node]:
+                    if child not in visited:
+                         depth[child] = depth[node]+1
+                         parent[child] = node
+                         frontier.append(child)
 
                 del child
+    print("No solution found")
+
+def reconstructPath(start, goal, parent):
+    path = []
+    node = goal
+    while( parent[node] != start):
+        path.insert(0,parent[node])
+        node = parent[node]
+    
+    path.insert(0,start)
+    return path
+
+def best(start, goal):
+    expanded = 1
+    frontier = []
+    visited = []
+    parent = {}
+    parent[start] = 0
+    closestNode = ""
+    #visited.append(start)
+    frontier.append(start)
+
+    while len(frontier) > 0:    
+        closestNode = frontier[0]
+        #jämför avståndet mellan en nod och den föregående bästa noden för alla noder i frontier
+        for n in frontier:
+            if(closestToGoal(n, goal) < closestToGoal(closestNode, goal)):
+                closestNode = n
+        
+        for asd in frontier:
+            if(asd == closestNode):
+               index = frontier.index(asd)
+               node = frontier.pop(index)
+                      
+        if(node == goal):
+            print("asd")
+            visited.append(goal)
+            #dfikjg = reconstructPath(start, goal, parent)
+            #print(dfikjg)
+            return reconstructPath(start, goal, parent)
+
+        if node not in visited:
+            visited.append(node)
+      
+
+        for child in connections[node]:
+            if child not in visited:
+                 parent[child] = node
+                 frontier = [child] + frontier
+                      
+    print("No solution found")
+
+def closestToGoal(tempNode ,tempGoal):
+    #node = str(tempNode.name)
+    #goal = str(tempGoal.name)
+
+    for city in cityList:
+        if(city.name == tempNode):           
+            node1X = int(city.x.strip())
+            node1Y = int(city.y.strip())
+
+    for city2 in cityList:
+        if(city2.name == tempGoal):
+            goalX = int(city2.x.strip())
+            goalY = int(city2.y.strip())
+
+    x = node1X - goalX
+    y = node1Y - int(city.y.strip())
+    ans = math.sqrt((x*x)+(y*y))
+    return ans
 
 
 def best_first_search(start, goal):
@@ -151,9 +218,10 @@ bestWay = []
 def Astar(start, goal):
     #räkna ut fågelväg för start->goal
     #sen alla starts successor och deras fågelväg
-    
+    expanded = 0
     visited = []
     frontier = []
+    test = []
     bestCity = ""
     done = 0
     foundBetter = 0
@@ -162,8 +230,6 @@ def Astar(start, goal):
     startX = int(start.x.strip())
     startY = int(start.y.strip())
 
-    #calculate distance from start pos to goal
-    #####estimate = calcDist(startX, startY, goal.name)
 
     bestWay.append(start.name)
     visited.append(start.name)
@@ -171,32 +237,25 @@ def Astar(start, goal):
 
     while(done != 1):
         foundBetter = 0
+
         #check if we've found the goal
         if(bestWay[-1] == goal.name):
-            bestWay.append(goal.name)
-            print("Found best way with  expanded nodes")
+            done = 1   
             
-            print(bestWay)
-                
-            done = 1
+            bestWay.append(goal.name)                  
+            findWay(bestWay, start.name, goal.name)
 
        #if we're not at the goal:
         #adds all successors to the frontier
         for successor in connections[bestWay[-1]]:
             if successor not in frontier:
-
                 if(successor == goal.name):
-                    bestWay.append(goal.name)
-                    print("Found best way with  expanded nodes")   
-                    print(bestWay)
-                    print("\n\n")
-                    print(visited)                
                     done = 1
+                    bestWay.append(goal.name)                            
+                    findWay(bestWay, start.name, goal.name)
 
-                    #pause
-                    input()
-
-                frontier.append(successor)
+            frontier.append(successor)
+                
 
         #creates a copy of frontier    
         frontier2 = []
@@ -207,37 +266,41 @@ def Astar(start, goal):
         while(len(frontier) > 0):
             costSoFar[frontier[-1]] = 0.0
             
+            #cost between current node and the goal (straight line)
             estCostToGoal = estDist(frontier[-1], goal.name, 0)
-            asd = estDist(frontier[-1], bestWay[-1], 1) 
 
-            costSoFar[frontier[-1]] = asd
+            #adds cost from start to the current node. (not straight line)
+            cost_to_node = estDist(frontier[-1], bestWay[-1], 1) 
+            #add cost to the dictionary.
+            costSoFar[frontier[-1]] = cost_to_node
           
-            parentName = frontier.pop()
-
-        temp_min = asd
+            frontier.pop()
+        
+        #check if the earlier estimated cost is better than the new way
+        #assign a start value to temp_min
+        temp_min = cost_to_node
         for node in costSoFar:
-            if(costSoFar[node] < asd and costSoFar[node] < temp_min):
+            if(costSoFar[node] < cost_to_node  and costSoFar[node] < temp_min):
                 if node not in visited:
                     temp_min = costSoFar[node]
-                  #  min = temp_min
-
+                    betterway=1
+        #assign lowest cost (next node) to its name.          
         for node2 in costSoFar:
-            if(temp_min == costSoFar[node2] and temp_min != asd):
+            if(temp_min == costSoFar[node2] and temp_min != cost_to_node):
 
-                if(node2 == 'Grossmehring'):
+                if(node2 == 'Adelschlag'):
                     debug=1
-
-               # bestWay.pop()              
+           
                 bestWay.append(node2)
                 visited.append(node2)
                 foundBetter = 1
         
         if(foundBetter == 0):
             bestCity = calcBest(frontier2)
-
-            if(bestCity == 'Mindelstetten'):
+           
+            if(bestCity == 'Bergheim'):
                 debug=1
-
+                        
             bestWay.append(bestCity)
             visited.append(bestCity)
 
@@ -249,6 +312,7 @@ def calcBest(nodes):
         for city in cityList:
             if(node == 'Vohburg' and city.name == 'Vohburg'):
                 debug = 1
+
             if(node == city.name):
                 city.total = city.cost_so_far + city.cost_to_goal
 
@@ -282,7 +346,43 @@ def estDist(fran, to, franStart):
                 city.cost_so_far += costSoFar[bestWay[-1]]
                 return city.cost_so_far
             
+def findWay(bestWay, start, goal):
+    done=0
+    x = -1
+    y = -1
+    correctWay = []
+    while(done != 1):
+        if( math.fabs(y)>(len(bestWay)-1)):
+            y=0
+        successor = connections[bestWay[x]]
+        if start in successor:
+                correctWay.append(start)
+                correctWay.reverse()
+                
+                correctWay.append(bestWay[-1])
+                print("Found best way")
+                print(correctWay)
+                print(len(bestWay))
+                done=1
 
+                input()
+        if bestWay[y] in successor:
+            #hittade successor
+            correctWay.append(bestWay[y])
+            x=y
+            y -= 1
+
+            if(correctWay[-1] == start):
+                correctWay.reverse()
+                correctWay.append(bestWay[-1])
+                print("Found best way")
+                print(correctWay)
+                print(len(bestWay))
+                done=1
+
+                input()
+        else:
+            y -= 1
 def calcDist(startX, startY, node):
     for city in cityList:
         if(node == city.name):
@@ -295,19 +395,24 @@ def calcDist(startX, startY, node):
     return temp
 
 def task1b():
-    print("Start location? ")
-    start = input()
-    print("\nGoal location? ")
-    goal = input()
-    deepening_search(start, goal, 2)
+    #print("Start location? ")
+    #start = input()
+    #print("\nGoal location? ")
+    #goal = input()
+    #deepening_search(start, goal, 2)
+
+    start = 'Neuburg'
+    goal = 'Denkendorf'
+    best(start, goal)
+
 
 def task1c():
     #print("Start location? ")
     #tempStart = input()
     #print("\nGoal location? ")
     #tempGoal = input()
-    tempStart = 'Bergheim'
-    tempGoal = 'Pforring'
+    tempStart = 'Ingolstadt'
+    tempGoal = 'Neuburg'
     for startNode in cityList:
         if(tempStart == startNode.name):
             start = startNode
@@ -321,8 +426,8 @@ def task1d():
     #tempStart = input()
     #print("\nGoal location? ")
     #tempGoal = input()
-    tempStart = 'Bergheim'
-    tempGoal = 'Pforring'
+    tempStart = 'Denkendorf'
+    tempGoal = 'Neustadt'
     for startNode in cityList:
         if(tempStart == startNode.name):
             start = startNode
@@ -334,9 +439,10 @@ def task1d():
 
 readFile()
 readRoads()
-
+#print(deepening_search('Neuburg', 'Mindelstetten', 20))
+task1b()
 #task1c()
-task1d()
+#task1d()
 input()
 
 #total = current längd + fågel

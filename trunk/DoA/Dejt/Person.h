@@ -7,7 +7,7 @@
 using namespace std;
 class Person
 {
-private:
+public:
 	string firstName;
 	InterestTable interests;
 public:
@@ -31,6 +31,15 @@ public:
 		return interests.GetInterest();
 	}
 
+	void printPerson()
+	{
+		vector<string> temp = interests.GetInterest();
+		cout << firstName << " ";
+		for (auto &a : temp)
+			cout  << a << " ";
+		cout << endl;
+	}
+
 	friend istream& operator>>(istream &in, Person &person)
 	{//cin
      //"person=Kalle"
@@ -49,6 +58,11 @@ public:
 			out << v[i] << " ";
 		}
 		return out;
+	}
+	friend bool operator==(Person &lop, Person & rop)
+	{
+		return lop.firstName == rop.firstName;
+		//return lop.firstName.compare(rop.firstName) == 0;
 	}
 	~Person()
 	{

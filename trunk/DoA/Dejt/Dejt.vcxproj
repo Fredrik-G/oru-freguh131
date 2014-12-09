@@ -67,9 +67,12 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Couple.h" />
+    <ClInclude Include="CouplesList.h" />
     <ClInclude Include="Dating.h" />
     <ClInclude Include="InterestTable.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="PersonList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

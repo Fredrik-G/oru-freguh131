@@ -1,66 +1,77 @@
 #pragma once
 #include "../Forward_List/forward_list.h"
-#include "Person.h"
+#include "PersonList.h"
+#include "Couple.h"
+#include "CouplesList.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <iostream>
+using namespace std;
 class Dating
 {
 private:
-	forward_list<Person> personList;
+	PersonList boys;
+	PersonList girls;
+	CouplesList couples;
 public:
 
 	Dating()
 	{
-		//Person kalle("kalle");
-		//Person namn("namn");
-		//personList.push_front(kalle);
-		//personList.push_front(namn);
-
-		//for (auto it = personList.begin(); it != personList.end(); it++)
-		//{
-		//	cout << it->value;
-		//}
 	}
-	void readFile(string fileName)
-	{		
-		
-		string s, row;
-		ifstream fin;
-		fin.open(fileName);
+	void readFile(string boysFile, string girlsFile)
+	{
+		boys.readFile(boysFile);
+		girls.readFile(girlsFile);
+	}
+	void matchCouple(int min_matching_interest)
+	{	
+		forward_list<Person> boysList = boys.GetList();
+		forward_list<Person> girlsList = girls.GetList();
 
-		if (!fin.good())
+		Person currentBoy = boysList.front();
+		Person currentGirl = girlsList.front();
+		while (!boysList.empty())
 		{
-			cout << "Filen " << fileName << "går ej att öppna\n";
-			return;
-		}
-
-		while (getline(fin, row))
-		{		
-			istringstream iss(row);
-			getline(iss, s, '=');
-
-			if (s == "person")
-			{//Läser en en ny person
-				Person person;
-				iss >> person;
-				if (!fin.eof())
+			while (!girlsList.empty())
+			{
+				int matching_interest_count = 0;
+				for (auto &b : currentBoy.GetInterest())
 				{
-					personList.push_front(person);
+					for (auto &g : currentGirl.GetInterest())
+					{
+						if (b == g)
+							//ett intresse matchar
+							matching_interest_count++;
+					}
 				}
-			}
-			else if (s == "interest")
-			{//Läser in personens intressen
-				getline(iss, s, '\n');
-				personList.front().AddInterest(s);
-				           //^funkar forwardlist.front()???
-			}
+				if (matching_interest_count >= min_matching_interest)
+				{//Personerna intressen matchar varandra, para ihop.
+					boysList.erase(currentBoy);
+					girlsList.erase(currentGirl);
 
+					couples.AddCouple(Couple(currentBoy, currentGirl));
+				}
 
+				//Fortsätt med nästa girl
+				girlsList.pop_front();
+				if (!girlsList.empty())
+					currentGirl = girlsList.front();
+
+			}//Gått igenom alla girls
+			//Fortsätt med nästa boy
+			boysList.pop_front();
+			if (!boysList.empty())
+				currentBoy = boysList.front();
+			//Fyll girlsList med alla girls igen.
+			girlsList = girls.GetList();
+			currentGirl = girlsList.front();
 		}
-		fin.close();
-
+	}
+	void PrintCouples()
+	{
+		couples.PrintCouplesList();
 	}
 	~Dating()
 	{

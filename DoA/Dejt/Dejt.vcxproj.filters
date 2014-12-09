@@ -29,5 +29,14 @@
     <ClInclude Include="Dating.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PersonList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CouplesList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Couple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication1", "PythonApplication1\PythonApplication1.pyproj", "{3F19C54C-5AB4-46E9-9E6E-5B74FC544031}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "labb2", "labb2\labb2.pyproj", "{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -17,6 +19,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3F19C54C-5AB4-46E9-9E6E-5B74FC544031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F19C54C-5AB4-46E9-9E6E-5B74FC544031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

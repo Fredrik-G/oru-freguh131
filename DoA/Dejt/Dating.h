@@ -25,7 +25,7 @@ public:
 		boys.readFile(boysFile);
 		girls.readFile(girlsFile);
 	}
-	void matchCouple(int min_matching_interest)
+	bool matchCouple(int min_matching_interest)
 	{	
 		forward_list<Person> boysList = boys.GetList();
 		forward_list<Person> girlsList = girls.GetList();
@@ -48,10 +48,11 @@ public:
 				}
 				if (matching_interest_count >= min_matching_interest)
 				{//Personerna intressen matchar varandra, para ihop.
-					boysList.erase(currentBoy);
-					girlsList.erase(currentGirl);
-
+					boys.erasePerson(currentBoy);
+					girls.erasePerson(currentGirl);
+										
 					couples.AddCouple(Couple(currentBoy, currentGirl));
+					break;
 				}
 
 				//Fortsätt med nästa girl
@@ -61,17 +62,31 @@ public:
 
 			}//Gått igenom alla girls
 			//Fortsätt med nästa boy
+			if (girls.getSize() == 0)
+				return true;
+
 			boysList.pop_front();
 			if (!boysList.empty())
 				currentBoy = boysList.front();
-			//Fyll girlsList med alla girls igen.
+
+			//Fyll girlsList med alla girls igen.		
 			girlsList = girls.GetList();
 			currentGirl = girlsList.front();
 		}
+
+		//Kolla om det inte hittades några par/matchningar
+		if (couples.getSize() == 0)
+			return false;
+		else if (couples.getSize() > 0)
+			return true;
 	}
 	void PrintCouples()
 	{
 		couples.PrintCouplesList();
+	}
+	void SortCouples()
+	{
+		couples.Sort();
 	}
 	~Dating()
 	{

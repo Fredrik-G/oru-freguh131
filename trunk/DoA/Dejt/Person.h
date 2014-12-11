@@ -53,16 +53,15 @@ public:
 	{//cout
 		out << person.firstName;
 		vector<string> v = person.GetInterest();
-		for (int i = 0; i < v.size(); i++)
+		for (unsigned int i = 0; i < v.size(); i++)
 		{
 			out << v[i] << " ";
 		}
 		return out;
 	}
-	friend bool operator==(Person &lop, Person & rop)
+	friend bool operator==(Person &lop, Person &rop)
 	{
 		return lop.firstName == rop.firstName;
-		//return lop.firstName.compare(rop.firstName) == 0;
 	}
 	~Person()
 	{

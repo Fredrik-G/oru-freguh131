@@ -16,18 +16,22 @@ public:
 	}
 	void Sort()
 	{//Sortera på flicknamn
-		;
+		couplesList.sort();
+	}
+	int getSize()
+	{
+		int size = 0;
+		for (auto &a : couplesList)
+		{
+			size++;
+		}
+		return size;
 	}
 	void PrintCouplesList()
 	{
 		for (auto &a : couplesList)
 			a.value.PrintCouple();
 	}
-	void SortCouplesList()
-	{
-
-	}
-
 	~CouplesList()
 	{
 	}

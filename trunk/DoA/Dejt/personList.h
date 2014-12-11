@@ -51,16 +51,14 @@ public:
 		}
 		fin.close();
 	}
-	void erasePerson(string name)
+	void erasePerson(Person person)
 	{
-		for (auto &a : personList)
-		{
-			;
-		}
+		personList.erase(person);
 	}
 	forward_list<Person> GetList()
 	{
-		return this->personList;
+		if (getSize()>0)
+			return this->personList;
 	}
 	void PrintList()
 	{
@@ -68,6 +66,13 @@ public:
 		{
 			a.value.printPerson();
 		}
+	}
+	int getSize()
+	{
+		int size = 0;
+		for (auto &a : personList)
+			size++;
+		return size;
 	}
 	~PersonList()
 	{

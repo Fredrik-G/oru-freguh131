@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ADT", "ADT\ADT.vcxproj", "{2539EF3E-E4C6-49C7-A7F2-8B305CE0A65C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fakultet", "Fakultet\Fakultet.vcxproj", "{313A33CE-BB0B-440F-89FE-92C41A577DE5}"
@@ -26,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestCSharp", "UnitTestCSharp\UnitTestCSharp.csproj", "{F79CDF12-D9BE-4E2D-BB2B-82B3CBC402D2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dejt", "Dejt\Dejt.vcxproj", "{4EEF2B4F-7BAD-414E-8895-76E327908360}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Trådprogrammering", "Trådprogrammering\Trådprogrammering.vcxproj", "{3A080DED-1927-4109-90FE-475CE3A82D64}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GammalTenta_Version1", "GammalTenta_Version1\GammalTenta_Version1.vcxproj", "{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -161,6 +163,26 @@ Global
 		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Win32.ActiveCfg = Release|Win32
 		{4EEF2B4F-7BAD-414E-8895-76E327908360}.Release|Win32.Build.0 = Release|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Debug|Win32.Build.0 = Debug|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Release|Any CPU.ActiveCfg = Release|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Release|Win32.ActiveCfg = Release|Win32
+		{3A080DED-1927-4109-90FE-475CE3A82D64}.Release|Win32.Build.0 = Release|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Debug|Win32.Build.0 = Debug|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Release|Any CPU.ActiveCfg = Release|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Release|Win32.ActiveCfg = Release|Win32
+		{2F19D4FC-9D22-4EAF-B6F1-98D2FFC3EB20}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

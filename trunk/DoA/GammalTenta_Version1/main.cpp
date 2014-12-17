@@ -3,6 +3,10 @@
 #include <deque>
 
 #include "Statistics.h"
+#include "wordCounter.h"
+
+#include "../hr_time.h"
+#include "../Watch.h"
 using namespace std;
 
 bool palindrom(string s)
@@ -60,13 +64,49 @@ void main3_2()
 	cout<<asd.calculate_median()<<endl;
 }
 
+void main3_3a()
+{
+	wordCounter words;
+	words.readFile("nils_holgersson.txt");
+	words.printMostFrequent(10);
 
+}
+void main3_3b1()
+{//med hr_time.h
+	wordCounter words;
+	CStopWatch csw;
+	csw.startTimer();
 
+	words.readFile("nils_holgersson.txt");
+	words.printMostFrequent(10);
+
+	csw.stopTimer();
+	cout<<"Exekveringstid med hr_time.h: "<<csw.getElapsedTime()<<endl;
+}
+void main3_3b2()
+{//med watch.h
+	wordCounter words;
+
+	Course::Watch w;
+	Course::milliseconds t1;
+	Course::nanoseconds t2;
+	w.restart();
+
+	words.readFile("nils_holgersson.txt");
+	words.printMostFrequent(10);
+
+	t1 = w.elapsedMs();
+	t2 =  w.elapsedNs();
+
+	cout<<"Exekveringstid med watch.h: "<<t2.count()/1e9<<endl;
+}
 int main()
 {
 	//main3_1();
-	main3_2();
+	//main3_2();
 
-
+	//main3_3a
+	main3_3b1();
+	//main3_3b2();
 	system("pause");
 }

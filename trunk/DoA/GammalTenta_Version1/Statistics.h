@@ -17,10 +17,10 @@ public:
 	Statistics(void)
 	{
 		clear();
-	}
+	}	
 	void readFile(string fileName)
 	{
-		string s, row;
+		string row;
 		ifstream fin;
 		fin.open(fileName);
 
@@ -35,12 +35,6 @@ public:
 			istringstream iss(row);
 			int temp;
 			iss >> temp;
-
-			//if(totSalary[temp] != 0)
-			//{
-			//	//inte unik
-			//	break;
-			//}
 			
 			if(temp>=2e4 && temp<=1e6)
 				totSalary[temp]++;
@@ -71,7 +65,6 @@ public:
 		{
 				count += totSalary[i];
 		}
-
 		if(count %2==0)
 			return totSalary[count/2];
 		else

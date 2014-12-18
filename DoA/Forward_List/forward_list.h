@@ -83,7 +83,7 @@ public:
 	//}
 	forward_list<T>& operator=(const forward_list<T> &rop)
 	{//Copy Assignment Operator
-	 //Som copy constructor fast tömmer listan först.
+		//Som copy constructor fast tömmer listan först.
 		if (!empty())
 			clear();
 
@@ -105,7 +105,7 @@ public:
 	~forward_list()
 	{
 	}
-//	virtual ~forward_list();
+	//	virtual ~forward_list();
 	void push_front(const T &value)
 	{
 		Node<T> *n = new Node<T>(value);
@@ -158,6 +158,58 @@ public:
 		Node<T> *d = it->next;
 		it->next = d->next;
 		delete d;
+	}
+	void erase(T asd)
+	{
+		Node<T> *prev = nullptr;
+		Node<T> *n = head;
+		while (n != nullptr)
+		{
+			if (n->value == asd)
+			{
+				if (prev == nullptr)
+					head = head->next;
+				else
+					prev->next = n->next;
+
+				delete n;
+				return;
+			}
+			prev = n;
+			n = n->next;
+		}
+	}
+	void sort()
+	{
+		Node<T> *current = head;
+		Node<T> *next = head->next;
+
+		for (unsigned int i = 0; i < getSize(); i++)
+		{//Testa alla noder med nästa noder
+			current = head;
+			next = head->next;
+
+			for (unsigned int j = 0; j < getSize() - 1; j++)
+			{
+				if (next->value < current->value)
+				{//Om den kommer hit så är ska nästa nod vara före aktuell nod					
+					T temp = current->value;
+					current->value = next->value;
+					next->value = temp;
+				}
+				current = next;
+				next = next->next;
+			}
+		}
+	}
+	int getSize()
+	{
+		int size = 0;
+		for (auto it = this->begin(); it != this->end(); it++)
+		{
+			size++;
+		}
+		return size;
 	}
 	void swap(forward_list<T> &fl)
 	{//swap - Byt plats på innehållet.

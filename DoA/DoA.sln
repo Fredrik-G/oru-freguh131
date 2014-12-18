@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ADT", "ADT\ADT.vcxproj", "{2539EF3E-E4C6-49C7-A7F2-8B305CE0A65C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fakultet", "Fakultet\Fakultet.vcxproj", "{313A33CE-BB0B-440F-89FE-92C41A577DE5}"
@@ -32,6 +34,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GammalTenta_Version2", "GammalTenta_Version2\GammalTenta_Version2.vcxproj", "{0996AB3B-0D4A-4321-A23C-939548A56FD3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GammalTenta_Version3", "GammalTenta_Version3\GammalTenta_Version3.vcxproj", "{04983E76-45C2-4812-B9D7-20D70A474A05}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tenta20141218", "Tenta20141218\Tenta20141218.vcxproj", "{7B415E3F-9C14-4B63-BED6-72F207616CB8}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -207,6 +211,16 @@ Global
 		{04983E76-45C2-4812-B9D7-20D70A474A05}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{04983E76-45C2-4812-B9D7-20D70A474A05}.Release|Win32.ActiveCfg = Release|Win32
 		{04983E76-45C2-4812-B9D7-20D70A474A05}.Release|Win32.Build.0 = Release|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Debug|Win32.Build.0 = Debug|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Release|Win32.ActiveCfg = Release|Win32
+		{7B415E3F-9C14-4B63-BED6-72F207616CB8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,6 +7,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication1", "Pytho
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "labb2", "labb2\labb2.pyproj", "{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Labb3", "Labb3\Labb3.pyproj", "{3CF28F7A-6D6C-4F16-9F6F-ADB0D9EC8B3C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -21,6 +23,8 @@ Global
 		{3F19C54C-5AB4-46E9-9E6E-5B74FC544031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDCBFEF1-D6D2-4672-87C5-77BA0AE16F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF28F7A-6D6C-4F16-9F6F-ADB0D9EC8B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF28F7A-6D6C-4F16-9F6F-ADB0D9EC8B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

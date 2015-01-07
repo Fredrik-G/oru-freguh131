@@ -273,14 +273,6 @@ def CheckAllConstraints(person,room,personinroom):
             CheckGarlicLover(person,room,personinroom) and
             CheckVisitorSpace(person, room, personinroom) and
             CheckPlace(person,room,personinroom))
-
-
-
-
-
-
-
-
 ###################################################################################################################
 def AllocateBacktracking():
     i = 0

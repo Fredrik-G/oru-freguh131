@@ -9,8 +9,7 @@ attributes = {'buying':['vhigh','high','med','low'],
               'doors':['2','3','4','5more'],
               'persons':['2','4','more'],
               'lug_boot':['small','med','big'],
-              'safety':['low','med','high'],
-              'attractiveness':['unacc','acc','good','vgood']
+              'safety':['low','med','high'],         
               }
 
 def readData():
@@ -21,25 +20,26 @@ def readData():
         carDatabase.append(car(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6]))
 
 def ID3(Cars, Attributes):
-    #kolla alla cars har samma class
+    #kolla om alla cars har samma class
     if(CheckClass(Cars,Attributes)):
         return DecisionLeaf(Cars[0].attractiveness)
 
     #kolla om attributes är tom
     elif(len(Attributes) == 0):
+
         return DecisionLeaf(MostCommonClass(Cars, Attributes))
 
     A = MaxInfoGain(Cars, Attributes)
     theTree = DecisionFork(A,{})
 
-    for value in Attributes[A]:
+    for value in attributes[A]:
         Cars_v = split(Cars,A,value)
         if(len(Cars_v) == 0):
             theTree.branches[value] = DecisionLeaf(MostCommonClass(Cars, Attributes))
         else:
-            asd = Attributes.copy()
-            del asd[A]
-            theTree.branches[value] = ID3(Cars_v, asd)
+            reduced_attributes = Attributes.copy()
+            del reduced_attributes[A]
+            theTree.branches[value] = ID3(Cars_v, reduced_attributes)
 
     theTree.display()
     return theTree
@@ -77,6 +77,7 @@ def InformationGain(Cars, Attribute):
     for vi in attributes[Attribute]:
         E_vi = split(Cars, Attribute, vi)
         HA += ((len(E_vi)/len(Cars))*CalculateEntropy(E_vi))
+
     return HS-HA
 
 def CalculateEntropy(Cars):
@@ -88,7 +89,6 @@ def CalculateEntropy(Cars):
     HS = 0
 
     for key in data:
-        #????????????????????????????????????????
         if(data[key] != 0):
             HS += - (data[key]/all)  * (math.log2(data[key] / (all)))
 
@@ -130,7 +130,7 @@ def MaxInfoGain(Cars, Attributes):
     
 def main():
     readData()
-    asd = ID3(carDatabase, attributes)
+    reduced_attributes = ID3(carDatabase, attributes)
     dfg=1
 
 

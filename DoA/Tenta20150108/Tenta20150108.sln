@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tenta20150108", "Tenta20150108\Tenta20150108.vcxproj", "{64230460-16EF-4147-9B12-114B8DD3E790}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest1", "UnitTest1\UnitTest1.vcxproj", "{C987324E-3F26-489F-9CA5-AB79DFFFE48D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64230460-16EF-4147-9B12-114B8DD3E790}.Debug|Win32.ActiveCfg = Debug|Win32
+		{64230460-16EF-4147-9B12-114B8DD3E790}.Debug|Win32.Build.0 = Debug|Win32
+		{64230460-16EF-4147-9B12-114B8DD3E790}.Release|Win32.ActiveCfg = Release|Win32
+		{64230460-16EF-4147-9B12-114B8DD3E790}.Release|Win32.Build.0 = Release|Win32
+		{C987324E-3F26-489F-9CA5-AB79DFFFE48D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C987324E-3F26-489F-9CA5-AB79DFFFE48D}.Debug|Win32.Build.0 = Debug|Win32
+		{C987324E-3F26-489F-9CA5-AB79DFFFE48D}.Release|Win32.ActiveCfg = Release|Win32
+		{C987324E-3F26-489F-9CA5-AB79DFFFE48D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

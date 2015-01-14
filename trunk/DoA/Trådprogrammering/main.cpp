@@ -1,16 +1,17 @@
 #include <thread>
-
+#include <clocale>
+//#include "Player.h"
 #include "Game.h"
-#include "Player.h"
-
 using namespace std;
 
 int main()
 {
-	Game asd;
-	thread t1(asd);
-	t1.join();
+	setlocale(LC_ALL, "swedish");
+	system("color 1f");
+
+	Game g;
+	g.PlayGame();
 
 
-	system("Pause");
+	system("pause");
 }

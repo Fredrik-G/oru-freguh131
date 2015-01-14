@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 //#include "M:\Desktop\år2\DoA\DoA\Forward_List\forward_list.h"
-#include "forward_list.h"
+#include "..\Forward_List\forward_list.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest

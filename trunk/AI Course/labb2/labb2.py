@@ -105,7 +105,6 @@ def initLists():
     roomList[6].near.append(roomList[0])
     roomList[6].near.append(roomList[5])
 
-
 def bossConstraints(person, room):
     #A boss shall sit alone in an office
     if(person.profession == 'Boss'):
@@ -182,6 +181,18 @@ def allocate(persons, rooms):
         for room in rooms:
             if(AssignPersonToRoom(person, room)):
                 break
+def AssignPersonToRoom():
+    i = 0
+    for person in personList:
+        if(i>5 and i<10):
+            person.inroom = roomList[i-5]
+            roomList[i-5].workersInRoom.append(person)
+        else:
+            person.inroom = roomList[i]
+            roomList[i].workersInRoom.append(person)
+
+        i += 1
+
 
 def CheckConstraints(person, room):
     if(bossConstraints(person, room) and 
@@ -194,59 +205,60 @@ def CheckConstraints(person, room):
     return False
 #############################################################################################################
 
-def CheckBossAlone(person,room,personinroom):
+def BossAlone(person, room, personinroom):
+    for testPerson, testRoom in personinroom.items():
+        if(room == testRoom):
+            if(testPerson.profession == "Boss"):
+                return False
+
     if(person.profession == "Boss"):
-        for key, value in personinroom.items():
-            if(value == room):
+        for testPerson, testRoom in personinroom.items():
+            if(room == testRoom):
                 return False
-
-    for key, value in personinroom.items():
-        if(value == room):
-            if(key.profession == "Boss"):
-                return False
-    return True
-
-def CheckSecretaryNearBoss(person,room,personinroom):
-    if(person.profession == "Secretary"):
-        for key,value in personinroom.items():
-            if(key.profession == "Boss"):
-                for x in value.near:
-                    if(x.id == room.id):
-                        return True
-        return False
     else:
         return True
 
-def CheckITSupportNearBoss(person,room,personinroom):
-    if(person.profession == "IT-support"):
-        for key,value in personinroom.items():
-            if(key.profession == "Boss"):
-                for x in value.near:
-                    if(x.id == room.id):
+def SecretaryNearBoss(person, room, personinroom):
+    if(person.profession != "Secretary"):
+            return True
+    else:       
+        for testPerson, testRoom in personinroom.items():
+            if(testPerson.profession == "Boss"):
+                for adjacentRoom in testRoom.near:
+                    if(room.id == adjacentRoom.id):
                         return True
         return False
-    else:
-        return True
 
-def CheckGarlicLover(person, room, personinroom):
+def ITSupportNearBoss(person, room, personinroom):
+    if(person.profession != "IT-support"):     
+        return True
+    else:
+        for testPerson, testRoom in personinroom.items():
+            if(testPerson.profession == "Boss"):
+                for adjacentRoom in testRoom.near:
+                    if(room.id == adjacentRoom.id):
+                        return True
+        return False
+
+def GarlicLover(person, room, personinroom):
     if(person.garlic_lover == True):
-        for key,value in personinroom.items():
-            if(room == value):
-                if(key.garlic_lover == False):
+        for testPerson, testRoom in personinroom.items():
+            if(room == testRoom):
+                if(testPerson.garlic_lover == False):
                     return False
     else:
-        for key,value in personinroom.items():
-            if(room == value):
-                if(key.garlic_lover == True):
+        for testPerson,testRoom in personinroom.items():
+            if(room == testRoom):
+                if(testPerson.garlic_lover == True):
                     return False
     return True
 
-def CheckVisitorSpace(person, room, personinroom):
+def VisitorSpace(person, room, personinroom):
     count = 0
     if(person.max_visitors > 0):
-        for key, value in personinroom.items():
-            if(room == value):
-                count = count + key.max_visitors
+        for testPerson, testRoom in personinroom.items():
+            if(room == testRoom):
+                count = count + testPerson.max_visitors
     count = count + person.max_visitors
 
     if(count > room.visitor_places):
@@ -254,10 +266,10 @@ def CheckVisitorSpace(person, room, personinroom):
     else:
         return True
 
-def CheckPlace(person,room,personinroom):
+def EnoughPlace(person, room, personinroom):
     count = 0
-    for key, value in personinroom.items():
-        if(room == value):
+    for testPerson, testRoom in personinroom.items():
+        if(room == testRoom):
             count = count + 1
     count = count + 1
 
@@ -266,13 +278,13 @@ def CheckPlace(person,room,personinroom):
     else:
         return True 
 
-def CheckAllConstraints(person,room,personinroom):
-    return (CheckBossAlone(person,room,personinroom) and
-            CheckSecretaryNearBoss(person,room,personinroom) and
-            CheckITSupportNearBoss(person,room,personinroom) and
-            CheckGarlicLover(person,room,personinroom) and
-            CheckVisitorSpace(person, room, personinroom) and
-            CheckPlace(person,room,personinroom))
+def CheckConstraintsWithTestPerson(person,room,personinroom):
+    return (BossAlone(person,room,personinroom) and
+            SecretaryNearBoss(person,room,personinroom) and
+            ITSupportNearBoss(person,room,personinroom) and
+            GarlicLover(person,room,personinroom) and
+            VisitorSpace(person, room, personinroom) and
+            EnoughPlace(person,room,personinroom))
 ###################################################################################################################
 def AllocateBacktracking():
     i = 0
@@ -338,7 +350,6 @@ def NumberOfPossibleRooms(person, rooms):
 
 PersonInRoom = {}
 
-
 def SelectUnassignedVariable(personlist,roomlist,personinroom):
     #Ta fram person med flest constraints (kan vara i minst antal rum)
     TempPersonList = []
@@ -361,6 +372,7 @@ def SelectUnassignedVariable(personlist,roomlist,personinroom):
         return min(TempPersonList, key = lambda x: x.AvailableRooms)
     else:
         return None
+
 def OrderDomainValues(person,roomlist,personinroom,personlist):
     tempRoomList = []
 
@@ -375,7 +387,7 @@ def OrderDomainValues(person,roomlist,personinroom,personlist):
             if testperson not in personinroom:
                 count = 0
                 for room2 in roomlist:
-                    if(CheckAllConstraints(testperson, room2, personinroom)):
+                    if(CheckConstraintsWithTestPerson(testperson, room2, personinroom)):
                         count += 1
 
                 PossibleOptions += count
@@ -394,7 +406,7 @@ def OrderDomainValues(person,roomlist,personinroom,personlist):
 
     return sortedRoomList
         
-def RecursiveAllocate(personlist,roomlist,personinroom):
+def HeuristicAllocate(personlist,roomlist,personinroom):
     #Smart tilldelning för att minska antal steg (backtracking).
     #Utgå från person med flest constraints och rum med flest antal möjliga arbetare
 
@@ -409,7 +421,7 @@ def RecursiveAllocate(personlist,roomlist,personinroom):
             #Lägg in den "bästa" personen om den kan vara där
            personinroom[person] = room
            room.workersInRoom.append(person)
-           result = RecursiveAllocate(personlist,roomlist,personinroom)
+           result = HeuristicAllocate(personlist,roomlist,personinroom)
 
            if (result != False):
                return result
@@ -419,12 +431,20 @@ def RecursiveAllocate(personlist,roomlist,personinroom):
 
     return False
 
-def PrintDict(personinroom):
-    print("(ID,Profession,Garlic Lover,Max visitors,rum-ID)")
-    for key,value in personinroom.items():
-        print("(",key.id,",",key.profession,",",key.garlic_lover,",",key.max_visitors,")",":",value.id)
-        
+def PrintPeopleAndRooms(personinroom):
+    print("(ID,Profession,Garlic Lover,Max visitors) = rum-ID")
+    for person, room in personinroom.items():
+        asd = "(" + person.id + "," + person.profession + "," + str(person.garlic_lover) + "," + str(person.max_visitors) + ") = " + room.id
+        print(asd)
 
+    print("")
+    for room in personinroom.items():
+        asd = ""
+        print(room[1].id,"near:")
+        for adjacentRoom in room[1].near:
+             asd+=adjacentRoom.id + " "
+
+        print(asd,"\n")   
 
 initLists()
 #AssignPersonToRoom()
@@ -441,11 +461,8 @@ initLists()
 #OrderDomainValues(personList[0])
 
 
-PrintDict(RecursiveAllocate(personList, roomList, PersonInRoom))
+PrintPeopleAndRooms(HeuristicAllocate(personList, roomList, PersonInRoom))
 
-
-
-print('\n\n\n\n')
 
 #SecretaryAndITConstraints(personList[1], roomList[1])
 

@@ -7,7 +7,7 @@ using namespace std;
 void Main3_1_2()
 {
 	Student s1;
-	Student s2("Fredrik", "Gummus");
+	Student s2("Fredrik", "G");
 	Student s3("Kalle", "Anka", 2005);
 
 	s1.SetFirstName("Anders");
@@ -45,7 +45,7 @@ void Main3_3()
 
 void Main3_4()
 {
-	Student s2("Fredrik", "Gummus");
+	Student s2("Fredrik", "G");
 	Student s3("Kalle", "Anka", 2005);
 	
 	StudentRegister sr;
@@ -62,7 +62,7 @@ void Main3_4()
 
 void Main3_5()
 {
-	Student s2("Fredrik", "Gummus");
+	Student s2("Fredrik", "G");
 	Student s3("Kalle", "Anka", 2005);
 	
 	StudentRegister sr;
